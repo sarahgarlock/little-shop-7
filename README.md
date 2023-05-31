@@ -1,4 +1,8 @@
-# Little Esty Shop
+# Ctrl+Alt+Elite
+
+## Little Esty Shop
+
+[DB Diagram](https://dbdiagram.io/d/647788ce722eb774942999b9)
 
 ## Background and Description
 
