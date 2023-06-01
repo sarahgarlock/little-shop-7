@@ -9,11 +9,11 @@ RSpec.describe Customer, type: :model do
     @customer_5 = Customer.create!(first_name: 'Margaret', last_name: 'Thatcher')
     @customer_6 = Customer.create!(first_name: 'Jacky', last_name: 'Kennedy')
     @invoice_1 = @customer_1.invoices.create!(status: "completed")
-    @invoice_2 = @customer_3.invoices.create!(status: "completed")
-    @invoice_3 = @customer_4.invoices.create!(status: "completed")
-    @invoice_4 = @customer_5.invoices.create!(status: "completed")
-    @invoice_5 = @customer_6.invoices.create!(status: "completed")
-    @invoice_6 = @customer_7.invoices.create!(status: "completed")
+    @invoice_2 = @customer_2.invoices.create!(status: "completed")
+    @invoice_3 = @customer_3.invoices.create!(status: "completed")
+    @invoice_4 = @customer_4.invoices.create!(status: "completed")
+    @invoice_5 = @customer_5.invoices.create!(status: "completed")
+    @invoice_6 = @customer_6.invoices.create!(status: "completed")
     @transaction_1 = @invoice_1.transactions.create!(cc_num: 467830927685, 
                                         cc_exp: 23485720,
                                         result: 0)
@@ -80,12 +80,13 @@ RSpec.describe Customer, type: :model do
   end
   describe 'relationships' do
     it {should have_many :invoices }
+    it {should have_many(:transactions).through(:invoices) }
   end
 
   describe 'class methods' do 
     it 'top_5' do 
       expected = [@customer_1, @customer_2, @customer_3, @customer_4, @customer_5]
-      
+
       expect(Customer.top_5).to match_array(expected)
     end
   end
