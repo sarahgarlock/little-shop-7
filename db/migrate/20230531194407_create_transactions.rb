@@ -1,12 +1,12 @@
 class CreateTransactions < ActiveRecord::Migration[7.0]
   def change
     create_table :transactions do |t|
-      t.integer :cc_num
-      t.integer :cc_exp
+      t.bigint :cc_num
+      t.bigint :cc_exp
       t.integer :result
       t.references :invoice, null: false, foreign_key: true
 
-      t.timestamps
+      t.timesmertamps
     end
   end
 end

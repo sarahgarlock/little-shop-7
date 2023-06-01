@@ -74,5 +74,53 @@ namespace :csv_load do
   
     puts "Data imported successfully!"
   end
+
+  desc "Import data from invoices CSV file to the database"
+  task invoices: :environment do
+    require 'csv'
+  
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
+  
+    csv_file = "lib/seeds/invoices.csv"
+  
+    puts "Importing data from #{csv_file}..."
+  
+    CSV.foreach(csv_file, headers: true) do |row|
+      Invoice.create(id: row['id'], 
+                  status: row['status'], 
+                  customer_id: row['customer_id'])
+    end
+  
+    puts "Data imported successfully!"
+  end
+
+  desc "Import data from invoice_items CSV file to the database"
+  task invoice_items: :environment do
+    require 'csv'
+  
+    ActiveRecord::Base.connection.reset_pk_sequence!('invoice_items')
+  
+    csv_file = "lib/seeds/invoice_items.csv"
+  
+    puts "Importing data from #{csv_file}..."
+  
+    CSV.foreach(csv_file, headers: true) do |row|
+      InvoiceItem.create(id: row['id'], 
+                  quantity: row['quantity'], 
+                  unit_price: row['unit_price'], 
+                  status: row['status'], 
+                  invoice_id: row['invoice_id'],
+                  item_id: row['item_id'])
+    end
+  
+    puts "Data imported successfully!"
+  end
+
+  desc "Import data from all CSV file to the database"
+  task all: [:customers, :merchants, :items, :transactions, :invoices, :invoice_items]  do
+    require 'csv'
+  
+    puts "All data imported successfully!"
+  end
 end
 
