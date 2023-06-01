@@ -54,31 +54,10 @@ namespace :csv_load do
     puts "Data imported successfully!"
   end
 
-  desc "Import data from transactions CSV file to the database"
-  task transactions: :environment do
-    require 'csv'
-  
-    csv_file = "lib/seeds/transactions.csv"
-    
-    puts "Importing data from #{csv_file}..."
-    
-    CSV.foreach(csv_file, headers: true) do |row|
-      Transaction.create(id: row['id'], 
-        cc_num: row['credit_card_number'], 
-        cc_exp: row['credit_card_expiration_date'],
-        result: row['result'],
-        invoice_id: row['invoice_id'])
-      end
-      
-    ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
-
-    puts "Data imported successfully!"
-  end
-
   desc "Import data from invoices CSV file to the database"
   task invoices: :environment do
     require 'csv'
-  
+    
     csv_file = "lib/seeds/invoices.csv"
     
     puts "Importing data from #{csv_file}..."
@@ -89,11 +68,31 @@ namespace :csv_load do
         customer_id: row['customer_id'])
       end
       
-    ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
-
-    puts "Data imported successfully!"
-  end
-
+      ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
+      
+      puts "Data imported successfully!"
+    end
+    
+    desc "Import data from transactions CSV file to the database"
+    task transactions: :environment do
+      require 'csv'
+    
+      csv_file = "lib/seeds/transactions.csv"
+      
+      puts "Importing data from #{csv_file}..."
+      
+      CSV.foreach(csv_file, headers: true) do |row|
+        Transaction.create(id: row['id'], 
+          cc_num: row['credit_card_number'], 
+          cc_exp: row['credit_card_expiration_date'],
+          result: row['result'],
+          invoice_id: row['invoice_id'])
+        end
+        
+      ActiveRecord::Base.connection.reset_pk_sequence!('transactions')
+  
+      puts "Data imported successfully!"
+    end
   desc "Import data from invoice_items CSV file to the database"
   task invoice_items: :environment do
     require 'csv'
