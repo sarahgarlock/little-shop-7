@@ -58,8 +58,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_194534) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer "cc_num"
-    t.integer "cc_exp"
+    t.bigint "cc_num"
+    t.bigint "cc_exp"
     t.integer "result"
     t.bigint "invoice_id", null: false
     t.datetime "created_at", null: false
