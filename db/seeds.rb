@@ -14,3 +14,4 @@ Customer.destroy_all
 Merchant.destroy_all
 
 
+
