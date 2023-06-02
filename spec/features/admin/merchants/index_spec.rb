@@ -21,7 +21,7 @@ RSpec.describe "Admin Merchant Index", type: :feature do
 
   it "links to merchant show page" do 
     visit admin_merchants_path
-save_and_open_page
+
     click_link "#{@merchant[0].name}"
 
     expect(current_path).to eq(admin_merchants_path(@merchant[0]))
