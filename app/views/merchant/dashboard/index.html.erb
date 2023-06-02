@@ -1,4 +1,6 @@
-<h1>Merchant Dashboard<h1>
+<h1>Merchant Dashboard</h1>
 
-<%= @merchants.name %>
-
+<h2><%= @merchant.name %></h2>
+<br>
+<%= link_to "My Items Index", "/merchants/#{@merchant.id}/items" %>
+<%= link_to "My Invoices Index", "/merchants/#{@merchant.id}/invoices" %>
