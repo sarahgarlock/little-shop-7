@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Admin Dashboard', type: :feature do
   before :each do
-    visit "/admin"
-    
     @customer_1 = Customer.create!(first_name: 'Jacky', last_name: 'Kennedy')
     @customer_2 = Customer.create!(first_name: 'Sir', last_name: 'Wiggles')
     @customer_3 = Customer.create!(first_name: 'Jason', last_name: 'Borne')
@@ -79,6 +77,7 @@ RSpec.describe 'Admin Dashboard', type: :feature do
     @transaction_19 = @invoice_6.transactions.create!(cc_num: 984787983476, 
                                         cc_exp: 23485720,
                                         result: 1)
+    visit "/admin"                                        
   end
 
   describe "As an admin, when I visit the admin dashboard" do
@@ -101,8 +100,8 @@ RSpec.describe 'Admin Dashboard', type: :feature do
     end
 
     it "will display the top 5 customers with most successful transactions and their num of transactions" do 
-      expect(page).to have_content("Top 5 Customers")
-      
+      expect(page).to have_content("Top 5 Customers:")
+      save_and_open_page
       within("#top5") do 
         expect(page).to_not have_content("#{@customer_6.first_name}")
       end
