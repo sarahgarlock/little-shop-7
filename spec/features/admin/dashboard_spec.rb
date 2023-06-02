@@ -20,7 +20,6 @@ RSpec.describe 'Admin Dashboard', type: :feature do
     it "will display a link to the admin invoices index" do
       expect(page).to have_link("Invoices")
 
-      save_and_open_page
       click_link("Invoices")
       expect(current_path).to eq("/admin/invoices")
     end
