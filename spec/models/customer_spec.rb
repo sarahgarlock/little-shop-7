@@ -74,7 +74,7 @@ RSpec.describe Customer, type: :model do
     @transaction_19 = @invoice_6.transactions.create!(cc_num: 984787982123, 
                                         cc_exp: 23485720,
                                         result: 1)
-    @transaction_19 = @invoice_6.transactions.create!(cc_num: 984787983476, 
+    @transaction_20 = @invoice_6.transactions.create!(cc_num: 984787983476, 
                                         cc_exp: 23485720,
                                         result: 1)
   end
