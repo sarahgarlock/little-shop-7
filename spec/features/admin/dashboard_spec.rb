@@ -7,7 +7,7 @@ RSpec.describe 'Admin Dashboard', type: :feature do
     @customer_3 = Customer.create!(first_name: 'Jason', last_name: 'Borne')
     @customer_4 = Customer.create!(first_name: 'Austin', last_name: 'Powers')
     @customer_5 = Customer.create!(first_name: 'Margaret', last_name: 'Thatcher')
-    @customer_6 = Customer.create!(first_name: 'Jacky', last_name: 'Kennedy')
+    @customer_6 = Customer.create!(first_name: 'Benny', last_name: 'Jets')
     @invoice_1 = @customer_1.invoices.create!(status: "completed")
     @invoice_2 = @customer_2.invoices.create!(status: "completed")
     @invoice_3 = @customer_3.invoices.create!(status: "completed")
@@ -101,7 +101,7 @@ RSpec.describe 'Admin Dashboard', type: :feature do
 
     it "will display the top 5 customers with most successful transactions and their num of transactions" do 
       expect(page).to have_content("Top 5 Customers:")
-      save_and_open_page
+      
       within("#top5") do 
         expect(page).to_not have_content("#{@customer_6.first_name}")
       end
