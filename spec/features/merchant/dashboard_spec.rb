@@ -6,87 +6,82 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
     @merchant1 = Merchant.create!(name: "Pen Inc.")
     @merchant2 = Merchant.create!(name: "Ctrl+Alt+Elite")
     @item = create_list(:item, 6, merchant: @merchant1)
-    @invoice1 = create(:invoice)
-    @invoice2 = create(:invoice)
-    @invoice3 = create(:invoice)
-    @invoice4 = create(:invoice)
-    @invoice5 = create(:invoice)
-    @invoice6 = create(:invoice)
-    @customer1 = @invoice1.customer
-    @customer2 = @invoice2.customer
-    @customer3 = @invoice3.customer
-    @customer4 = @invoice4.customer
-    @customer5 = @invoice5.customer
-    @customer6 = @invoice6.customer
-    @invoice_item1 = create(:invoice_item, item: @item[0], invoice: @invoice1)
-    @invoice_item2 = create(:invoice_item, item: @item[1], invoice: @invoice2)
-    @invoice_item3 = create(:invoice_item, item: @item[2], invoice: @invoice3)
-    @invoice_item4 = create(:invoice_item, item: @item[3], invoice: @invoice4)
-    @invoice_item5 = create(:invoice_item, item: @item[4], invoice: @invoice5)
-    @invoice_item6 = create(:invoice_item, item: @item[5], invoice: @invoice6)
-    @transaction1 = @invoice1.transactions.create!(cc_num: 467830927685, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction2 = @invoice1.transactions.create!(cc_num: 467830207685, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction3 = @invoice1.transactions.create!(cc_num: 467830201095, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction4 = @invoice1.transactions.create!(cc_num: 467830257395, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction5 = @invoice1.transactions.create!(cc_num: 469530201095, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction6 = @invoice2.transactions.create!(cc_num: 469530201095, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction7 = @invoice2.transactions.create!(cc_num: 4690980201095, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction8 = @invoice2.transactions.create!(cc_num: 4695387901095, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction9 = @invoice2.transactions.create!(cc_num: 469587980095, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction10 = @invoice3.transactions.create!(cc_num: 265587980095, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction11 = @invoice3.transactions.create!(cc_num: 976587980095, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction12 = @invoice3.transactions.create!(cc_num: 375587980095, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction13 = @invoice4.transactions.create!(cc_num: 375582980095, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction14 = @invoice4.transactions.create!(cc_num: 375587980000, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction15 = @invoice4.transactions.create!(cc_num: 375587982176, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction16 = @invoice5.transactions.create!(cc_num: 876587982176, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction17 = @invoice5.transactions.create!(cc_num: 187687982176, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction18 = @invoice5.transactions.create!(cc_num: 984787982145, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction18 = @invoice6.transactions.create!(cc_num: 984787982986, 
-                                        cc_exp: 23485720,
-                                        result: 0)
-    @transaction19 = @invoice6.transactions.create!(cc_num: 984787982123, 
-                                        cc_exp: 23485720,
-                                        result: 1)
-    @transaction20 = @invoice6.transactions.create!(cc_num: 984787983476, 
-                                        cc_exp: 23485720,
-                                        result: 1)
+    @invoice = create_list(:invoice, 6, status: 1)
+    @customer1 = @invoice[0].customer
+    @customer2 = @invoice[1].customer
+    @customer3 = @invoice[2].customer
+    @customer4 = @invoice[3].customer
+    @customer5 = @invoice[4].customer
+    @customer6 = @invoice[5].customer
+    @invoice_item1 = create(:invoice_item, item: @item[0], invoice: @invoice[0])
+    @invoice_item2 = create(:invoice_item, item: @item[1], invoice: @invoice[1])
+    @invoice_item3 = create(:invoice_item, item: @item[2], invoice: @invoice[2])
+    @invoice_item4 = create(:invoice_item, item: @item[3], invoice: @invoice[3])
+    @invoice_item5 = create(:invoice_item, item: @item[4], invoice: @invoice[4])
+    @invoice_item6 = create(:invoice_item, item: @item[5], invoice: @invoice[5])
+    @transaction_1 = @invoice[0].transactions.create!(cc_num: 467830927685, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_2 = @invoice[0].transactions.create!(cc_num: 467830207685, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_3 = @invoice[0].transactions.create!(cc_num: 467830201095, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_4 = @invoice[0].transactions.create!(cc_num: 467830257395, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_5 = @invoice[0].transactions.create!(cc_num: 469530201095, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_6 = @invoice[1].transactions.create!(cc_num: 469530201095, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_7 = @invoice[1].transactions.create!(cc_num: 4690980201095, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_8 = @invoice[1].transactions.create!(cc_num: 4695387901095, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_9 = @invoice[1].transactions.create!(cc_num: 469587980095, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_10 = @invoice[2].transactions.create!(cc_num: 265587980095, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_11 = @invoice[2].transactions.create!(cc_num: 976587980095, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_12 = @invoice[2].transactions.create!(cc_num: 375587980095, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_13 = @invoice[3].transactions.create!(cc_num: 375582980095, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_14 = @invoice[3].transactions.create!(cc_num: 375587980000, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_15 = @invoice[3].transactions.create!(cc_num: 375587982176, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_16 = @invoice[4].transactions.create!(cc_num: 876587982176, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_17 = @invoice[4].transactions.create!(cc_num: 187687982176, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_18 = @invoice[4].transactions.create!(cc_num: 984787982145, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_18 = @invoice[5].transactions.create!(cc_num: 984787982986, 
+        cc_exp: 23485720,
+        result: 0)
+    @transaction_19 = @invoice[5].transactions.create!(cc_num: 984787982123, 
+        cc_exp: 23485720,
+        result: 1)
+    @transaction_20 = @invoice[5].transactions.create!(cc_num: 984787983476, 
+        cc_exp: 23485720,
+        result: 1)
 
   end
   describe "/merchant/dashboard" do
