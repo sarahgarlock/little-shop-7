@@ -90,4 +90,12 @@ RSpec.describe Customer, type: :model do
       expect(Customer.top_5).to match_array(expected)
     end
   end
+
+  describe 'instance methods' do 
+    it 'count_success_transactions' do 
+      expect(@customer_1.count_success_transactions).to eq(5)
+      expect(@customer_3.count_success_transactions).to eq(3)
+      expect(@customer_6.count_success_transactions).to eq(1)
+    end
+  end
 end

@@ -7,4 +7,8 @@ class Customer < ApplicationRecord
     .where("transactions.result = 0").group("customers.id")
     .order("COUNT(transactions.id) DESC").limit(5)
   end
+
+  def count_success_transactions
+    transactions.where("transactions.result = 0").count
+  end
 end
