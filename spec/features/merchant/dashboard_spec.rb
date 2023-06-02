@@ -20,7 +20,7 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
 #   2.  Merchant Dashboard Links
     it "displays links to my merchant items index and merchant invoices index" do 
       visit "/merchants/#{@merchant1.id}/dashboard"
-  save_and_open_page
+
       expect(page).to have_link("My Items Index")
       expect(page).to have_link("My Invoices Index")
     end
