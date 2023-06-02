@@ -18,4 +18,12 @@ RSpec.describe "Admin Merchant Index", type: :feature do
       expect(page).to have_content("#{@merchant[5].name}")
     end
   end
+
+  it "links to merchant show page" do 
+    visit admin_merchants_path
+
+    click_link "#{@merchant[0].name}"
+
+    expect(current_path).to eq(admin_merchants_path(@merchant[0]))
+  end
 end
