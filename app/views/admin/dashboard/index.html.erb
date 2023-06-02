@@ -2,3 +2,14 @@
 
 <p><%= link_to 'Merchants', '/admin/merchants' %><p>
 <p><%= link_to 'Invoices', '/admin/invoices' %><p>
+
+<section id="top5">
+  <h2> Top 5 customers </h2> 
+  <% @customers.top_5.each do |customer| %>
+    <div id="top5-<%= customer.id %>">
+    <%= customer.first_name %>
+    <%= customer.last_name %>
+    <%= customer.count_success_transactions %>
+    </div>
+  <% end %>
+</section>
