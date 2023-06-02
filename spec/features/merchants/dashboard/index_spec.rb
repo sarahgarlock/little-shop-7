@@ -1,5 +1,4 @@
 require 'rails_helper'
-include FactoryBot::Syntax::Methods
 
 RSpec.describe 'Merchant Dashboard', type: :feature do
     before :each do

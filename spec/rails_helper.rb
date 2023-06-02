@@ -70,3 +70,5 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+include FactoryBot::Syntax::Methods
