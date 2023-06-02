@@ -16,5 +16,13 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
       expect(page).to have_content(@merchant1.name)
       expect(@merchant1.name).to eq("Pen Inc.")
     end
+
+#   2.  Merchant Dashboard Links
+    it "displays links to my merchant items index and merchant invoices index" do 
+      visit "/merchants/#{@merchant1.id}/dashboard"
+
+      expect(page).to have_link("My Items Index")
+      expect(page).to have_link("My Invoices Index")
+    end
   end
 end
