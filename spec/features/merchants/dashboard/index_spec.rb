@@ -172,23 +172,19 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
             end
         end
 #   5. Merchant Dashboard Invoices sorted by least recent
-        xit "displays the item names and the invoice date for that item, ordered oldest to newest" do 
+        it "displays the item names and the invoice date for that item, ordered oldest to newest" do 
+            @invoice1_date = @invoice1.created_at.strftime("%A, %B %d, %Y")
+            @invoice4_date = @invoice4.created_at.strftime("%A, %B %d, %Y")
+            @invoice5_date = @invoice4.created_at.strftime("%A, %B %d, %Y")
+
             visit "/merchants/#{@merchant1.id}/dashboard"
 
             within("#merchant-items") do 
-                expect(page).to have_content("Items Ready to Ship")
-                expect(page).to have_content("#{@item1.name} #{@invoice[0].created_at}")
-                expect(page).to have_content("#{@item2.name} #{@invoice[1].created_at}")
-                expect(page).to have_content("#{@item3.name} #{@invoice[2].created_at}")
-                expect(page).to have_content("#{@item4.name} #{@invoice[3].created_at}")
-                expect(page).to have_content("#{@item5.name} #{@invoice[4].created_at}")
-                expect(page).to have_content("#{@item6.name} #{@invoice[5].created_at}")
-    # And I see the date formatted like "Monday, July 18, 2019"
+                expect(page).to have_content("#{@item1.name} - Created: #{@invoice1_date}")
+                expect(page).to have_content("#{@item2.name} - Created: #{@invoice4_date}")
+                expect(page).to have_content("#{@item3.name} - Created: #{@invoice5_date}")
                 expect("#{@item1.name}").to appear_before("#{@item2.name}")
                 expect("#{@item2.name}").to appear_before("#{@item3.name}")
-                expect("#{@item3.name}").to appear_before("#{@item4.name}")
-                expect("#{@item4.name}").to appear_before("#{@item5.name}")
-                expect("#{@item5.name}").to appear_before("#{@item6.name}")
             end
         end
     end
