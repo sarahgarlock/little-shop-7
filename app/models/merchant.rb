@@ -14,4 +14,14 @@ class Merchant < ApplicationRecord
     items.joins(:invoice_items)
     .where.not(invoice_items: { status: 2 })
   end
+
+  def update_status(code)
+    if code == "0"
+      enabled!
+    elsif code == "1"
+      disabled!
+    else 
+      "invalid code"
+    end
+  end
 end

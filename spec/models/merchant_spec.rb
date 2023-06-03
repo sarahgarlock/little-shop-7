@@ -19,9 +19,23 @@ RSpec.describe Merchant, type: :model do
     it { should have_many(:invoice_items).through(:items)}
   end
 
-  describe 'class methods' do
+  describe 'instance methods' do
     it 'items_ready_to_ship' do
       expect(@merchant1.items_ready_to_ship).to eq([@item1, @item2, @item3])
+    end
+
+    it 'update_status' do 
+      expect(@merchant1.status).to eq("enabled")
+
+      @merchant1.update_status("1")
+
+      expect(@merchant1.status).to eq("disabled")
+
+      @merchant1.update_status("0")
+
+      expect(@merchant1.status).to eq("enabled")
+
+      expect(@merchant1.update_status("foo")).to eq("invalid code")
     end
   end
 
