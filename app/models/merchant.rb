@@ -1,7 +1,7 @@
 class Merchant < ApplicationRecord
   has_many :items
   has_many :invoice_items, through: :items
-
+  validates :name, presence: true
   # def top_customers(merchant)
   #   Customer.joins(invoices: :items)
   #   .where(items: { merchant_id: merchant.id })

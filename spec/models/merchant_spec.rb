@@ -24,4 +24,8 @@ RSpec.describe Merchant, type: :model do
       expect(@merchant1.items_ready_to_ship).to eq([@item1, @item2, @item3])
     end
   end
+
+  describe 'validations' do 
+    it { should validate_presence_of(:name) }
+  end
 end

@@ -1,6 +1,6 @@
 <section id="merchants-list">
 <h1> Merchants </h1>
 <% @merchants.each do |merchant| %>
-  <%= merchant.name %>
+  <%= link_to  merchant.name, "/admin/merchants/#{merchant.id}" %> <br>
 <% end %>
 </section>
