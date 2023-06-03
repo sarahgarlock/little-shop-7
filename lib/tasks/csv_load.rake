@@ -83,8 +83,8 @@ namespace :csv_load do
       
       CSV.foreach(csv_file, headers: true) do |row|
         Transaction.create(id: row['id'], 
-          cc_num: row['credit_card_number'], 
-          cc_exp: row['credit_card_expiration_date'],
+          cc_num: row['cc_num'], 
+          cc_exp: row['cc_exp'],
           result: row['result'],
           invoice_id: row['invoice_id'])
         end
@@ -116,7 +116,7 @@ namespace :csv_load do
   end
 
   desc "Import data from all CSV file to the database"
-  task all: [:customers, :merchants, :items, :transactions, :invoices, :invoice_items]  do
+  task all: [:customers, :merchants, :items, :invoices, :transactions, :invoice_items]  do
     require 'csv'
   
     puts "All data imported successfully!"
