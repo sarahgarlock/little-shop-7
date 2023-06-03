@@ -11,7 +11,7 @@ RSpec.describe "Admin Edit Merchant form page", type: :feature do
     # with successful edit, flash message shows saying "Merchant successfully updated"
 
     visit "/admin/merchants/#{@merchant[0].id}/edit"
-
+save_and_open_page
     fill_in "Name", with: "Forest Gump" 
     click_button "Submit"
     
@@ -21,10 +21,6 @@ RSpec.describe "Admin Edit Merchant form page", type: :feature do
   end
 
   it "has a form to update merchant information (invalid data)" do 
-    # form is pre-filled in with already existing merchant information
-    # upon submit, client is redirected back to merchant's admin show page
-    # with successful edit, flash message shows saying "Merchant successfully updated"
-
     visit "/admin/merchants/#{@merchant[0].id}/edit"
 
     fill_in "Name", with: "" 
