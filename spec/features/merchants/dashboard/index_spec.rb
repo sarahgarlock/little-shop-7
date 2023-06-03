@@ -172,7 +172,7 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
             end
         end
 #   5. Merchant Dashboard Invoices sorted by least recent
-        it "displays the item names and the invoice date for that item, ordered oldest to newest" do 
+        it "displays the items ready to ship with invoice creation date, ordered oldest to newest" do 
             @invoice1_date = @invoice1.created_at.strftime("%A, %B %d, %Y")
             @invoice4_date = @invoice4.created_at.strftime("%A, %B %d, %Y")
             @invoice5_date = @invoice4.created_at.strftime("%A, %B %d, %Y")
