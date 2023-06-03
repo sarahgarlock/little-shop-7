@@ -15,6 +15,6 @@
 <div id="merchant-items">
   <h3>Items Ready To Ship</h3>
   <p><% @items.each do |item| %></p>
-    <p><%= item.name %> - <%= "Invoice #" %><%= link_to item.invoice_items[0].invoice_id, "/merchants/#{@merchant.id}/invoices/#{item.invoice_items[0].invoice_id}" %>
+    <p><%= item.name %> - Created: <%= item.invoice_items[0].created_at.strftime("%A, %B %d, %Y") %> - <%= "Invoice #" %><%= link_to item.invoice_items[0].invoice_id, "/merchants/#{@merchant.id}/invoices/#{item.invoice_items[0].invoice_id}" %>
   <% end %>
 </div>

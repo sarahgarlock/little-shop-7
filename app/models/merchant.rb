@@ -13,6 +13,7 @@ class Merchant < ApplicationRecord
   def items_ready_to_ship
     items.joins(:invoice_items)
     .where.not(invoice_items: { status: 2 })
+    .order('invoice_items.created_at ASC')
   end
 
   def update_status(code)
