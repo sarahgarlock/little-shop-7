@@ -2,3 +2,10 @@
 
 <p><%= link_to 'Merchants', '/admin/merchants' %><p>
 <p><%= link_to 'Invoices', '/admin/invoices' %><p>
+
+<div id="incomplete-invoices">
+  <h2>Incomplete Invoices</h2>
+  <% @invoice_ids.each do |invoice_id| %>
+   <p> <%= link_to "Invoice ID ##{invoice_id}", admin_invoice_path(invoice_id) %></p>
+  <% end %>
+</div>
