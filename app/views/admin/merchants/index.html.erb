@@ -1,6 +1,21 @@
 <section id="merchants-list">
 <h1> Merchants </h1>
 <% @merchants.each do |merchant| %>
-  <%= link_to  merchant.name, "/admin/merchants/#{merchant.id}" %> <br>
+  <div id="merchant-<%= merchant.id %>"> 
+  <%= link_to  merchant.name, "/admin/merchants/#{merchant.id}" %> 
+  <p> Status: <%= merchant.status %></p>
+  <%= form_with url: "/admin/merchants", method: :patch, data: {turbo: false}, local: true do |f| %>
+    <%= f.hidden_field merchant_status: "update_status" %>
+    <%= f.hidden_field status: "0" %>
+    <%= f.hidden_field merchant_id: merchant.id %>
+    <%= f.submit "Enable #{merchant.name}"%>
+  <% end %>
+  <%= form_with url: "/admin/merchants", method: :patch, data: {turbo: false}, local: true do |f| %>
+    <%= f.hidden_field merchant_status: "update_status" %>
+    <%= f.hidden_field status: "1" %>
+    <%= f.hidden_field merchant_id: "#{merchant.id}" %>
+    <%= f.submit "Disable #{merchant.name}"%>
+  <% end %>
+  </div> <br>
 <% end %>
 </section>
