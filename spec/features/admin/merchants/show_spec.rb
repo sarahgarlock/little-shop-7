@@ -13,7 +13,7 @@ RSpec.describe "Merchant show page", type: :feature do
   
   it "has a link to update the merchant's information" do 
     visit "admin/merchants/#{@merchant[0].id}"
-    save_and_open_page  
+
     click_link "Update Merchant" 
 
     expect(current_path).to eq("admin/merchants/#{@merchant[0].id}/edit")
