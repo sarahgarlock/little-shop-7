@@ -140,35 +140,18 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
 
             within "#merchant-items" do
                 expect(page).to have_content("Items Ready To Ship")
+
                 expect(page).to have_content(@invoiceitem1.item.name)
-                expect(page).to have_link(@invoiceitem1.invoice_id)
-                save_and_open_page
+                expect(page).to have_link "#{@invoiceitem1.invoice_id}"
+
+                expect(page).to have_content(@invoiceitem2.item.name)
+                expect(page).to have_link "#{@invoiceitem2.invoice_id}"
+
+                expect(page).to have_content(@invoiceitem3.item.name)
+                expect(page).to have_link "#{@invoiceitem3.invoice_id}"
+
                 click_link "#{@invoiceitem1.invoice_id}"
                 expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoiceitem1.invoice_id}")
-                # expect(page).to have_content(@invoice_item2.item.name)
-                # expect(page).to have_link(@invoice_item2.invoice_id)
-                # click_link "#{@invoice_item2.invoice_id}"
-                # expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice_item2.invoice_id}")
-
-                # expect(page).to have_content(@invoice_item3.item.name)
-                # expect(page).to have_link(@invoice_item3.invoice_id)
-                # click_link "#{@invoice_item3.invoice_id}"
-                # expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice_item3.invoice_id}")
-
-                # expect(page).to have_content(@invoice_item4.item.name)
-                # expect(page).to have_link(@invoice_item4.invoice_id)
-                # click_link "#{@invoice_item4.invoice_id}"
-                # expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice_item4.invoice_id}")
-
-                # expect(page).to have_content(@invoice_item5.item.name)
-                # expect(page).to have_link(@invoice_item5.invoice_id)
-                # click_link "#{@invoice_item5.invoice_id}"
-                # expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice_item5.invoice_id}")
-
-                # expect(page).to have_content(@invoice_item6.item.name)
-                # expect(page).to have_link(@invoice_item6.invoice_id)
-                # click_link "#{@invoice_item6.invoice_id}"
-                # expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice_item6.invoice_id}")
             end
         end
     end
