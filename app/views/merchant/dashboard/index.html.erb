@@ -1,0 +1,11 @@
+<h1>Merchant Dashboard</h1>
+
+<h2><%= @merchant.name %></h2>
+<br>
+<%= link_to "My Items", "/merchants/#{@merchant.id}/items" %>
+<%= link_to "My Invoices", "/merchants/#{@merchant.id}/invoices" %>
+
+  <h2> Top Customers: </h2> 
+  <% @top_customers.each do |customer| %>
+    <p> <%= customer.first_name %> <%= customer.last_name%>: <%= customer.count_success_transactions %> purchases </p>
+  <% end %>
