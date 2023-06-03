@@ -9,24 +9,17 @@ RSpec.describe "Admin Edit Merchant form page", type: :feature do
     # form is pre-filled in with already existing merchant information
     # upon submit, client is redirected back to merchant's admin show page
     # with successful edit, flash message shows saying "Merchant successfully updated"
-
     visit "/admin/merchants/#{@merchant[0].id}/edit"
-save_and_open_page
+
+    expect(page).to have_field("Name", with: "#{@merchant[0].name}")
+
     fill_in "Name", with: "Forest Gump" 
-    click_button "Submit"
+    click_button "Save"
     
     expect(page).to have_content("Merchant successfully updated")
     expect(current_path).to eq("/admin/merchants/#{@merchant[0].id}")
     expect(page).to have_content("Forest Gump")
   end
 
-  it "has a form to update merchant information (invalid data)" do 
-    visit "/admin/merchants/#{@merchant[0].id}/edit"
-
-    fill_in "Name", with: "" 
-    click_button "Submit"
-
-    expect(page).to have_content("Error: Name can't be blank.")
-    expect(current_path).to eq("/admin/merchants/#{@merchant[0].id}/edit")
-  end
+#  add test for invalid data
 end

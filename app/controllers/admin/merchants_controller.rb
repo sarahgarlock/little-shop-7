@@ -12,8 +12,8 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def update
-    merchant = Merchant.find(params[:id])
-    if Merchant.update(merchant_params)
+    merchant = Merchant.find(params[:merchant_id])
+    if merchant.update(merchant_params)
       redirect_to "/admin/merchants/#{merchant.id}"
       flash[:notice] = "Merchant successfully updated."
     else
@@ -25,6 +25,6 @@ class Admin::MerchantsController < ApplicationController
   private 
   
   def merchant_params
-    params.require(:merchant).permit(:name)
+    params.permit(:name)
   end
 end
