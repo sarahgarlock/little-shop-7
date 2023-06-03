@@ -4,20 +4,33 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
     before :each do
         @merchant1 = Merchant.create!(name: "Pen Inc.")
         @merchant2 = Merchant.create!(name: "Ctrl+Alt+Elite")
-        @item = create_list(:item, 6, merchant: @merchant1)
-        @invoice = create_list(:invoice, 6, status: 1)
+        # @item = create_list(:item, 6, merchant: @merchant1)
+        @item1 = Item.create!(name: "pen ink", description: "xxxxxxx", unit_price: 10, merchant_id: @merchant1.id)
+        @item2 = Item.create!(name: "printer ink", description: "xxxxxxx", unit_price: 11, merchant_id: @merchant1.id)
+        @item3 = Item.create!(name: "pens", description: "xxxxxxx", unit_price: 12, merchant_id: @merchant1.id)
+        @item4 = Item.create!(name: "paper", description: "xxxxxxx", unit_price: 20, merchant_id: @merchant1.id)
+        @item5 = Item.create!(name: "paperclips", description: "xxxxxxx", unit_price: 20, merchant_id: @merchant1.id)
+        @item6 = Item.create!(name: "white-out", description: "xxxxxxx", unit_price: 5, merchant_id: @merchant1.id)
+        # @invoice = create_list(:invoice, 6, status: 1)
+        @invoice1 = Invoice.create!(customer_id: @customer1.id, status: 1)
+        @invoice2 = Invoice.create!(customer_id: @customer1.id, status: 1)
+        @invoice3 = Invoice.create!(customer_id: @customer1.id, status: 1)
         @customer1 = @invoice[0].customer
+        # @customer1 = Customer.create!(first_name: "Andy", last_name: "S")
         @customer2 = @invoice[1].customer
         @customer3 = @invoice[2].customer
         @customer4 = @invoice[3].customer
         @customer5 = @invoice[4].customer
         @customer6 = @invoice[5].customer
-        @invoice_item1 = create(:invoice_item, item: @item[0], invoice: @invoice[0])
-        @invoice_item2 = create(:invoice_item, item: @item[1], invoice: @invoice[1])
-        @invoice_item3 = create(:invoice_item, item: @item[2], invoice: @invoice[2])
-        @invoice_item4 = create(:invoice_item, item: @item[3], invoice: @invoice[3])
-        @invoice_item5 = create(:invoice_item, item: @item[4], invoice: @invoice[4])
-        @invoice_item6 = create(:invoice_item, item: @item[5], invoice: @invoice[5])
+        @invoice_item1 = create(:invoice_item, item: @item1, invoice: @invoice[0])
+        @invoice_item2 = create(:invoice_item, item: @item2, invoice: @invoice[1])
+        @invoice_item3 = create(:invoice_item, item: @item3, invoice: @invoice[2])
+        @invoice_item4 = create(:invoice_item, item: @item4, invoice: @invoice[3])
+        @invoice_item5 = create(:invoice_item, item: @item5, invoice: @invoice[4])
+        @invoice_item6 = create(:invoice_item, item: @item6, invoice: @invoice[5])
+        # @invoiceitem1 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 100, unit_price: 10, status: 1)
+        # @invoiceitem2 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice2.id, quantity: 100, unit_price: 10, status: 1)
+        # @invoiceitem3 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice3.id, quantity: 100, unit_price: 10, status: 1)
         @transaction_1 = @invoice[0].transactions.create!(cc_num: 467830927685, 
             cc_exp: 23485720,
             result: 0)
@@ -114,6 +127,26 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
             expect(page).to have_content(@customer4.count_success_transactions)
             expect(page).to have_content(@customer5.count_success_transactions)
             expect(page).to_not have_content(@customer6.count_success_transactions)
+        end
+#   5. Merchant Dashboard Invoices sorted by least recent
+        it "displays the item names and the invoice date for that item, ordered oldest to newest" do 
+            visit "/merchants/#{@merchant1.id}/dashboard"
+
+            within("#ready_to_ship") do 
+                expect(page).to have_content("Items Ready to Ship")
+                expect(page).to have_content("#{@item1.name} #{@invoice[0].created_at}")
+                expect(page).to have_content("#{@item2.name} #{@invoice[1].created_at}")
+                expect(page).to have_content("#{@item3.name} #{@invoice[2].created_at}")
+                expect(page).to have_content("#{@item4.name} #{@invoice[3].created_at}")
+                expect(page).to have_content("#{@item5.name} #{@invoice[4].created_at}")
+                expect(page).to have_content("#{@item6.name} #{@invoice[5].created_at}")
+    # And I see the date formatted like "Monday, July 18, 2019"
+                expect("#{@item1.name}").to appear_before("#{@item2.name}")
+                expect("#{@item2.name}").to appear_before("#{@item3.name}")
+                expect("#{@item3.name}").to appear_before("#{@item4.name}")
+                expect("#{@item4.name}").to appear_before("#{@item5.name}")
+                expect("#{@item5.name}").to appear_before("#{@item6.name}")
+            end
         end
     end
 end
