@@ -148,7 +148,6 @@ RSpec.describe 'Admin Dashboard', type: :feature do
         expect(page).to have_content("#{@customer_5.last_name}")
         expect(page).to have_content(@customer_5.count_success_transactions)
       end
-      save_and_open_page
     end
     
     it "will display a section for 'Incomplete Invoices'" do
