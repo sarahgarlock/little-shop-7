@@ -29,7 +29,6 @@ RSpec.describe "Admin Merchant Index", type: :feature do
   
   it "has buttons to disable or enable each merchant" do 
     visit admin_merchants_path
-    save_and_open_page
 
     within("#merchant-#{@merchant[0].id}") do 
       expect(page).to have_content("enabled")
