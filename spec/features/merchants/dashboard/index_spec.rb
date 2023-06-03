@@ -82,6 +82,7 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
             cc_exp: 23485720,
             result: 1)
     end
+
     describe "/merchant/dashboard" do
     # 1. Merchant Dashboard
         it "displays name of merchant" do
@@ -90,30 +91,67 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
             expect(@merchant1.name).to eq("Pen Inc.")
         end
     #   2.  Merchant Dashboard Links
-    it "displays links to my merchant items index and merchant invoices index" do 
-        visit "/merchants/#{@merchant1.id}/dashboard"
+        it "displays links to my merchant items index and merchant invoices index" do 
+            visit "/merchants/#{@merchant1.id}/dashboard"
 
-        expect(page).to have_link("My Items")
-        expect(page).to have_link("My Invoices")
-    end
+            expect(page).to have_link("My Items")
+            expect(page).to have_link("My Invoices")
+        end
     # 3. Merchant Dashboard Statistics - Favorite Customers
         it "displays my top 5 customers and the number of successful transactions" do
             visit "/merchants/#{@merchant1.id}/dashboard"
-
-            expect(page).to have_content("Top Customers:")
-            expect(page).to have_content("#{@customer1.first_name} #{@customer1.last_name}")
-            expect(page).to have_content("#{@customer2.first_name} #{@customer2.last_name}")
-            expect(page).to have_content("#{@customer3.first_name} #{@customer3.last_name}")
-            expect(page).to have_content("#{@customer4.first_name} #{@customer4.last_name}")
-            expect(page).to have_content("#{@customer5.first_name} #{@customer5.last_name}")
-            expect(page).to_not have_content("#{@customer6.first_name} #{@customer6.last_name}")
+            within "#merchants" do
+                expect(page).to have_content("Top Customers:")
+                expect(page).to have_content("#{@customer1.first_name} #{@customer1.last_name}")
+                expect(page).to have_content("#{@customer2.first_name} #{@customer2.last_name}")
+                expect(page).to have_content("#{@customer3.first_name} #{@customer3.last_name}")
+                expect(page).to have_content("#{@customer4.first_name} #{@customer4.last_name}")
+                expect(page).to have_content("#{@customer5.first_name} #{@customer5.last_name}")
+                expect(page).to_not have_content("#{@customer6.first_name} #{@customer6.last_name}")
+                
+                expect(page).to have_content(@customer1.count_success_transactions)
+                expect(page).to have_content(@customer2.count_success_transactions)
+                expect(page).to have_content(@customer3.count_success_transactions)
+                expect(page).to have_content(@customer4.count_success_transactions)
+                expect(page).to have_content(@customer5.count_success_transactions)
+                expect(page).to_not have_content(@customer6.count_success_transactions)
+            end
+        end
+    end
+    # 4. Merchant Dashboard Items Ready to Ship
+    describe "Merchant Items with Invoices" do
+        before :each do
+            @merchant1 = Merchant.create!(name: "Pen Inc.")
+            @item1 = Item.create!(name: "pen ink", description: "xxxxxxx", unit_price: 10, merchant_id: @merchant1.id)
+            @item2 = Item.create!(name: "printer ink", description: "xxxxxxx", unit_price: 11, merchant_id: @merchant1.id)
+            @item3 = Item.create!(name: "pens", description: "xxxxxxx", unit_price: 12, merchant_id: @merchant1.id)
+            @customer1 = Customer.create!(first_name: "Andy", last_name: "S")
+            @invoice1 = Invoice.create!(customer_id: @customer1.id, status: 1)
+            @invoice2 = Invoice.create!(customer_id: @customer1.id, status: 1)
+            @invoice3 = Invoice.create!(customer_id: @customer1.id, status: 1)
+            @invoiceitem1 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 100, unit_price: 10, status: 1)
+            @invoiceitem2 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice2.id, quantity: 100, unit_price: 10, status: 1)
+            @invoiceitem3 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice3.id, quantity: 100, unit_price: 10, status: 1)
+        end
+        it "shows items ready to ship" do
             
-            expect(page).to have_content(@customer1.count_success_transactions)
-            expect(page).to have_content(@customer2.count_success_transactions)
-            expect(page).to have_content(@customer3.count_success_transactions)
-            expect(page).to have_content(@customer4.count_success_transactions)
-            expect(page).to have_content(@customer5.count_success_transactions)
-            expect(page).to_not have_content(@customer6.count_success_transactions)
+            visit "/merchants/#{@merchant1.id}/dashboard"
+
+            within "#merchant-items" do
+                expect(page).to have_content("Items Ready To Ship")
+
+                expect(page).to have_content(@invoiceitem1.item.name)
+                expect(page).to have_link "#{@invoiceitem1.invoice_id}"
+
+                expect(page).to have_content(@invoiceitem2.item.name)
+                expect(page).to have_link "#{@invoiceitem2.invoice_id}"
+
+                expect(page).to have_content(@invoiceitem3.item.name)
+                expect(page).to have_link "#{@invoiceitem3.invoice_id}"
+
+                click_link "#{@invoiceitem1.invoice_id}"
+                expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoiceitem1.invoice_id}")
+            end
         end
     end
 end
