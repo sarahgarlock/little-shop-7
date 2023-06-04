@@ -49,6 +49,7 @@ RSpec.describe 'Merchant Items', type: :feature do
         expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}")
       end
     end
+    
 #   9.  Merchant Item Disable/Enable
     it "has a button to disable or enable an item" do 
       visit "/merchants/#{@merchant1.id}/items"
