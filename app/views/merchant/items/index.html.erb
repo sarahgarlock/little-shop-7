@@ -3,8 +3,12 @@
 <div id="merchants_items">
 <p><% @items.each do |item| %></p>
   <div id="merchants_items-<%= item.id %>">
-  <p><%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> <%= item.status %> </p>
-  <p><%= button_to "Disable/Enable Item", "/merchants/#{@merchant.id}/items", params: {:item_id => item.id}, method: :patch %></p>
+  <p><%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> Status: <%= item.status %></p>
+  <% if item.status == ("enabled") %>
+    <p><%= button_to "Disable Item", "/merchants/#{@merchant.id}/items", params: {:item_id => item.id, :disable => item.name}, method: :patch %></p>
+  <% else %>
+    <p><%= button_to "Enable Item", "/merchants/#{@merchant.id}/items", params: {:item_id => item.id, :enable => item.name}, method: :patch %></p>
+  <% end %>
   </div>
   <% end %>
 </div>

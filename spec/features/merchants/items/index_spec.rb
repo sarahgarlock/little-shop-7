@@ -52,18 +52,18 @@ RSpec.describe 'Merchant Items', type: :feature do
 #   9.  Merchant Item Disable/Enable
     it "has a button to disable or enable an item" do 
       visit "/merchants/#{@merchant1.id}/items"
-save_and_open_page
-      # within "#app_status-#{@clawdia.id}" do
-      # "merchants_items-<%= item.id %>"
+
+      within "#merchants_items-#{@item1.id}" do
+        expect(page).to have_content("#{@item1.name} Status: enabled")
+        expect(page).to have_button("Disable Item")
+        click_button "Disable Item"
+      end
       
       within "#merchants_items-#{@item1.id}" do
-        expect(page).to have_button("Disable/Enable Item")
-        expect(page).to have_content("#{@item1.name} enabled")
-        click_button "Disable/Enable Item"
+        expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
+        expect(page).to have_content("#{@item1.name} Status: disabled")
+        expect(page).to have_button("Enable Item")
       end
-
-      expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
-      expect(page).to have_content("#{@item1.name} disabled")
     end
   end
 end
