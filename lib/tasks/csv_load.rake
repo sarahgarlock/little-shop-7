@@ -85,8 +85,8 @@ namespace :csv_load do
       
       CSV.foreach(csv_file, headers: true) do |row|
         Transaction.create(id: row['id'], 
-          cc_num: row['cc_num'], 
-          cc_exp: row['cc_exp'],
+          cc_num: row['credit_card_number'], 
+          cc_exp: row['credit_card_expiration'],
           result: row['result'],
           invoice_id: row['invoice_id'])
         end
