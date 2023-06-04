@@ -31,7 +31,7 @@ RSpec.describe 'Merchant Items', type: :feature do
     end
 
     # 8. Merchant Item Update
-    xit "has edit item form" do
+    it "has edit item form" do
       visit "/merchants/#{@merchant1.id}/items/#{@item1.id}"
 
       expect(page).to have_link "Edit Item Information"
