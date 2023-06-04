@@ -81,15 +81,15 @@ RSpec.describe 'Admin Dashboard', type: :feature do
     @merchant = create(:merchant)
     @item = create(:item, merchant: @merchant)
 
-    @invoice1 = create(:invoice, status: 0)
-    @invoice2 = create(:invoice, status: 1)
-    @invoice3 = create(:invoice, status: 2)
+    @invoice1 = create(:invoice, status: 0, created_at: Time.zone.parse("2022-02-02 12:00:00"))
+    @invoice2 = create(:invoice, status: 1, created_at: Time.zone.parse("2022-02-01 12:00:00"))
+    @invoice3 = create(:invoice, status: 2, created_at: Time.zone.parse("2022-02-01 12:00:00"))
     #{packaged: 0, pending: 1, shipped: 2}
 
     @invoice_item1 = create(:invoice_item, status: 0, invoice: @invoice1, item: @item)
     @invoice_item2 = create(:invoice_item, status: 1, invoice: @invoice2, item: @item)
-    @invoice_item3 = create(:invoice_item, status: 2, invoice: @invoice3, item: @item)    
-    
+    @invoice_item3 = create(:invoice_item, status: 2, invoice: @invoice3, item: @item)
+        
     visit "/admin"                                        
   end
 
