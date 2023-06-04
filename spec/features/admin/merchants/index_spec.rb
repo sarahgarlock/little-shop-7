@@ -54,7 +54,6 @@ RSpec.describe "Admin Merchant Index", type: :feature do
     @merchant[5].enabled!
 
     visit admin_merchants_path
-    save_and_open_page
 
     within("#merchants-enabled") do 
       expect(page).to have_content("#{@merchant[3].name}")
