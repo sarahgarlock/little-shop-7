@@ -68,11 +68,6 @@ RSpec.describe 'Merchant Items', type: :feature do
     end
 
     # 10. Merchant Items Grouped by Status
-
-    # As a merchant,
-    # When I visit my merchant items index page
-    # Then I see two sections, one for "Enabled Items" and one for "Disabled Items"
-    # And I see that each Item is listed in the appropriate section
     it "has sections for enabled and disabled items" do
       visit "/merchants/#{@merchant1.id}/items"
 
