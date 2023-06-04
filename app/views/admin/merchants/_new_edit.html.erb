@@ -1,0 +1,5 @@
+<%= form_with url: path, method: method, data: {turbo: false}, local: true do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, value: "#{@merchant.name}" %>
+  <%= f.submit %>
+<% end %>

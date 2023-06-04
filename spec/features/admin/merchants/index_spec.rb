@@ -74,6 +74,6 @@ RSpec.describe "Admin Merchant Index", type: :feature do
 
     click_link "Create a New Merchant" 
 
-    expect(current_path).to eq(new_admin_merchant_path)
+    expect(current_path).to eq("/admin/merchants/new")
   end
 end
