@@ -77,12 +77,19 @@ RSpec.describe 'Merchant Items', type: :feature do
         expect(page).to_not have_content(@item3.name)
       end
 
-
       within "#disabled" do
         expect(page).to_not have_content(@item1.name)
         expect(page).to_not have_content(@item2.name)
         expect(page).to have_content(@item3.name)
       end
+    end
+
+    # 11. Merchant Item Create
+    it "can add new items" do 
+      visit "/merchants/#{@merchant1.id}/items"
+
+      expect(page).to have_link "Create new item"
+      click_link "Create new item"
     end
   end
 end
