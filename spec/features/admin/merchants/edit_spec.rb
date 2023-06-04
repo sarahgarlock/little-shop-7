@@ -12,6 +12,7 @@ RSpec.describe "Admin Edit Merchant form page", type: :feature do
     visit "/admin/merchants/#{@merchant[0].id}/edit"
 
     expect(page).to have_field("Name", with: "#{@merchant[0].name}")
+    expect(page).to have_content("Edit Merchant")
 
     fill_in "Name", with: "Forest Gump" 
     click_button "Save"
