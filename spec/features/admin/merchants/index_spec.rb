@@ -4,20 +4,6 @@ RSpec.describe "Admin Merchant Index", type: :feature do
   before(:each) do 
     @merchant = create_list(:merchant, 6)
   end
-  it "displays a list of all merchants" do 
-    visit admin_merchants_path
-
-    expect(page).to have_content("Merchants")
-    
-    within("#merchants-list") do 
-      expect(page).to have_content("#{@merchant[0].name}")
-      expect(page).to have_content("#{@merchant[1].name}")
-      expect(page).to have_content("#{@merchant[2].name}")
-      expect(page).to have_content("#{@merchant[3].name}")
-      expect(page).to have_content("#{@merchant[4].name}")
-      expect(page).to have_content("#{@merchant[5].name}")
-    end
-  end
 
   it "links to merchant show page" do 
     visit admin_merchants_path
@@ -56,6 +42,30 @@ RSpec.describe "Admin Merchant Index", type: :feature do
     
     within("#merchant-#{@merchant[0].id}") do 
       expect(page).to have_content("disabled")
+    end
+  end
+
+  it "displays merchants separated by status" do 
+    @merchant[0].disabled!
+    @merchant[1].disabled!
+    @merchant[2].disabled!
+    @merchant[3].enabled!
+    @merchant[4].enabled!
+    @merchant[5].enabled!
+
+    visit admin_merchants_path
+
+    within("#merchants-enabled") do 
+      expect(page).to have_content("#{@merchant[3].name}")
+      expect(page).to have_content("#{@merchant[4].name}")
+      expect(page).to have_content("#{@merchant[5].name}")
+    end
+
+
+    within("#merchants-disabled") do 
+      expect(page).to have_content("#{@merchant[0].name}")
+      expect(page).to have_content("#{@merchant[1].name}")
+      expect(page).to have_content("#{@merchant[2].name}")
     end
   end
 end
