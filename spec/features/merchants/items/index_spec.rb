@@ -49,5 +49,18 @@ RSpec.describe 'Merchant Items', type: :feature do
         expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}")
       end
     end
+#   9.  Merchant Item Disable/Enable
+    it "has a button to disable or enable an item" do 
+      visit "/merchants/#{@merchant1.id}/items"
+# save_and_open_page
+      within "#merchants-items" do
+        expect(page).to have_button("Disable/Enable Item")
+        expect(page).to have_content("#{@item1.name} Enabled")
+        click_button "Disable/Enable Item"
+      end
+
+      expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
+      expect(page).to have_content("#{@item1.name} Disabled")
+    end
   end
 end
