@@ -65,7 +65,9 @@ namespace :csv_load do
     CSV.foreach(csv_file, headers: true) do |row|
       Invoice.create(id: row['id'], 
         status: row['status'], 
-        customer_id: row['customer_id'])
+        customer_id: row['customer_id'],
+        created_at: row['created_at'],
+        updated_at: row['updated_at'])
       end
       
       ActiveRecord::Base.connection.reset_pk_sequence!('invoices')
