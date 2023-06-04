@@ -43,6 +43,10 @@ class Merchant::ItemsController < ApplicationController
     redirect_to "/merchants/#{@merchant.id}/items"
   end
 
+  def new
+    @item = Item.new
+  end
+
   private 
   def item_params
     params.permit(:name, :description, :unit_price)
