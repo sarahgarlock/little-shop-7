@@ -57,7 +57,7 @@ RSpec.describe Merchant, type: :model do
       @invoice2.reload
       @invoice3.reload
 
-      expect(@merchant1.best_day).to eq(@invoice3.created_at)
+      expect(@merchant1.best_day.to_s).to eq(@invoice3.created_at.strftime("%Y-%m-%d"))
     end
   end
 
