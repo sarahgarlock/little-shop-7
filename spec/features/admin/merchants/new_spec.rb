@@ -6,12 +6,12 @@ RSpec.describe "Admin New Merchant Page", type: :feature do
     # submit should redirect to admin merchants index
 
     visit "/admin/merchants/new" 
-    save_and_open_page
 
     fill_in "Name", with: "Awesome Sauce" 
     click_button "Save" 
 
     expect(current_path).to eq("/admin/merchants")
     expect(page).to have_content("Awesome Sauce")
+    expect(Merchant.last.status).to eq("disabled")
   end
 end
