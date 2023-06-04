@@ -26,7 +26,7 @@ RSpec.describe 'Merchant Items', type: :feature do
       visit "/merchants/#{@merchant1.id}/items"
       expect(page).to have_content(@merchant1.name)
 
-      within "#merchants-items" do
+      within "#merchants_items" do
         expect(page).to have_content(@item1.name)
         expect(page).to have_content(@item2.name)
         expect(page).to have_content(@item3.name)
@@ -40,13 +40,30 @@ RSpec.describe 'Merchant Items', type: :feature do
     it "links to item show page" do
       visit "/merchants/#{@merchant1.id}/items"
 
-      within "#merchants-items" do
+      within "#merchants_items" do
         expect(page).to have_link "#{@item1.name}"
         expect(page).to have_link "#{@item2.name}"
         expect(page).to have_link "#{@item3.name}"
 
         click_link "#{@item1.name}"
         expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}")
+      end
+    end
+    
+#   9.  Merchant Item Disable/Enable
+    it "has a button to disable or enable an item" do 
+      visit "/merchants/#{@merchant1.id}/items"
+
+      within "#merchants_items-#{@item1.id}" do
+        expect(page).to have_content("#{@item1.name} Status: enabled")
+        expect(page).to have_button("Disable Item")
+        click_button "Disable Item"
+      end
+      
+      within "#merchants_items-#{@item1.id}" do
+        expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
+        expect(page).to have_content("#{@item1.name} Status: disabled")
+        expect(page).to have_button("Enable Item")
       end
     end
   end

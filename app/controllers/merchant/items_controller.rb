@@ -25,10 +25,23 @@ class Merchant::ItemsController < ApplicationController
       redirect_to "/merchants/#{@merchant.id}/items/#{@item.id}/edit"
       flash[:alert] = "Error: Valid data must be entered"
     end
+  end 
+
+  def update_status
+    @merchant = Merchant.find(params[:merchant_id])
+    @item = Item.find(params[:item_id])
+    if params[:disable] != nil
+      @item.update(status: "disabled")
+    elsif params[:enable] != nil
+      @item.update(status: "enabled")
+    else
+      @item.status
+    end
+    @item.save
+    redirect_to "/merchants/#{@merchant.id}/items"
   end
 
   private 
-  
   def item_params
     params.permit(:name, :description, :unit_price)
   end

@@ -22,4 +22,5 @@ Rails.application.routes.draw do
   get "/merchants/:merchant_id/items/:item_id", to: "merchant/items#show"
   get "/merchants/:merchant_id/items/:item_id/edit", to: "merchant/items#edit"
   patch "/merchants/:merchant_id/items/:item_id", to: "merchant/items#update"
+  patch "/merchants/:merchant_id/items", to: "merchant/items#update_status"
 end
