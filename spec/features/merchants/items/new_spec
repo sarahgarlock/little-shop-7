@@ -23,17 +23,16 @@ RSpec.describe 'Merchant Items', type: :feature do
 
     # 11. Merchant Item Create
     it "can add new items" do 
-      visit "/merchants/items/new"
-
+      visit "/merchants/#{@merchant1.id}/items/new"
       fill_in "name", with: "paper"
       fill_in "description", with: "abcde"
       fill_in "unit_price", with: "5"
       click_on "Submit"
-
+      
       expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
-
+      expect(page).to have_content("paper Status: disabled")
       within "#disabled" do
-        expect(page).to have_content("paper Status: disabled")
+        expect(page).to have_content("paper")
       end 
     end
   end

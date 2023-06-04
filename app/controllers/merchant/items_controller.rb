@@ -1,4 +1,6 @@
 class Merchant::ItemsController < ApplicationController
+  # before_action :set_merchant
+
   def index
     @merchant = Merchant.find(params[:merchant_id])
     @items = @merchant.items
@@ -7,6 +9,7 @@ class Merchant::ItemsController < ApplicationController
   end
 
   def show
+    require 'pry'; binding.pry
     @merchant = Merchant.find(params[:merchant_id])
     @item = Item.find(params[:item_id])
   end
@@ -44,10 +47,21 @@ class Merchant::ItemsController < ApplicationController
   end
 
   def new
-    @item = Item.new
+    @merchant = Merchant.find(params[:merchant_id])
+    @item = @merchant.items.new
+  end
+
+  def create
+    @merchant = Merchant.find(params[:merchant_id])
+    @merchant.items.create!(item_params)
+    redirect_to "/merchants/#{@merchant.id}/items"
   end
 
   private 
+  # def set_merchant
+  #   @merchant = Merchant.find(params[:merchant_id])
+  # end
+
   def item_params
     params.permit(:name, :description, :unit_price)
   end

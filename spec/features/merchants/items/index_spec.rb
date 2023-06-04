@@ -90,7 +90,7 @@ RSpec.describe 'Merchant Items', type: :feature do
 
       expect(page).to have_link "Create new item"
       click_link "Create new item"
-      expect(current_path).to eq("/merchants/items/new")
+      expect(current_path).to eq("/merchants/#{@merchant1.id}/items/new")
     end
   end
 end
