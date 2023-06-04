@@ -5,10 +5,10 @@ RSpec.describe 'Merchant Items', type: :feature do
     before :each do
       @merchant1 = Merchant.create!(name: "Pen Inc.")
       @merchant2 = Merchant.create!(name: "Ctrl+Alt+Elite")
-      @item1 = Item.create!(name: "pen ink", description: "xxxxxxx", unit_price: 10, merchant_id: @merchant1.id)
-      @item2 = Item.create!(name: "printer ink", description: "xxxxxxx", unit_price: 11, merchant_id: @merchant1.id)
-      @item3 = Item.create!(name: "pens", description: "xxxxxxx", unit_price: 12, merchant_id: @merchant1.id)
-      @item4 = Item.create!(name: "laptops", description: "xxxxxxx", unit_price: 12, merchant_id: @merchant2.id)
+      @item1 = Item.create!(name: "pen ink", description: "xxxxxxx", unit_price: 10, merchant_id: @merchant1.id, status: 0)
+      @item2 = Item.create!(name: "printer ink", description: "xxxxxxx", unit_price: 11, merchant_id: @merchant1.id, status: 0)
+      @item3 = Item.create!(name: "pens", description: "xxxxxxx", unit_price: 12, merchant_id: @merchant1.id, status: 1)
+      @item4 = Item.create!(name: "laptops", description: "xxxxxxx", unit_price: 12, merchant_id: @merchant2.id, status: 0)
       @customer1 = Customer.create!(first_name: "Andy", last_name: "S")
       @customer2 = Customer.create!(first_name: "Billy", last_name: "Bob")
       @invoice1 = Invoice.create!(customer_id: @customer1.id, status: 1)
@@ -64,6 +64,24 @@ RSpec.describe 'Merchant Items', type: :feature do
         expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
         expect(page).to have_content("#{@item1.name} Status: disabled")
         expect(page).to have_button("Enable Item")
+      end
+    end
+
+    # 10. Merchant Items Grouped by Status
+    it "has sections for enabled and disabled items" do
+      visit "/merchants/#{@merchant1.id}/items"
+
+      within "#enabled" do
+        expect(page).to have_content(@item1.name)
+        expect(page).to have_content(@item2.name)
+        expect(page).to_not have_content(@item3.name)
+      end
+
+
+      within "#disabled" do
+        expect(page).to_not have_content(@item1.name)
+        expect(page).to_not have_content(@item2.name)
+        expect(page).to have_content(@item3.name)
       end
     end
   end

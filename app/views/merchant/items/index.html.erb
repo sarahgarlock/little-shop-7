@@ -12,3 +12,17 @@
   </div>
   <% end %>
 </div>
+
+<div id="enabled">
+  <h3>Enabled Items</h3>
+  <% @enabled_items.each do |item| %>
+    <p><%= item.name %></p>
+  <% end %>
+</div>
+
+<div id="disabled">
+  <h3>Disabled Items</h3>
+  <% @disabled_items.each do |item| %>
+    <p><%= item.name %></p>
+  <% end %>
+</div>
