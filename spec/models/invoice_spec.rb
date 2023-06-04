@@ -41,4 +41,20 @@ RSpec.describe Invoice, type: :model do
       expect(result).to eq([invoice_2, invoice_3, invoice_1])
     end
   end
+
+  describe ".order_by_creation_date" do 
+    before(:each) do 
+      @invoice1 = create(:invoice, created_at: "2012-03-25 09:54:09 UTC")
+      @invoice2 = create(:invoice, created_at: "2012-03-07 21:54:10 UTC")
+      @invoice3 = create(:invoice, created_at: "2012-03-12 04:54:11 UTC")
+      @invoice4 = create(:invoice, created_at: "2012-03-08 21:54:23 UTC")
+      @invoice5 = create(:invoice, created_at: "2012-03-13 14:54:22 UTC")
+      @invoice6 = create(:invoice, created_at: "2012-03-10 13:54:22 UTC")
+    end
+
+    it "returns invoices in order of date created" do 
+      expected = [@invoice2, @invoice4, @invoice6, @invoice3, @invoice5, @invoice1]
+      expect(Invoice.order_by_creation_date).to eq(expected)
+    end
+  end
 end

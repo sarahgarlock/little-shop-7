@@ -6,9 +6,9 @@ class Invoice < ApplicationRecord
 
   enum status: {"cancelled" => 0, "completed" => 1, "in progress" => 2}
 
-  def self.incomplete
-    where(status: :incomplete)
-  end
+  # def self.incomplete
+  #   where(status: :incomplete)
+  # end
   
   def self.order_by_creation_date
     order(created_at: :asc)
