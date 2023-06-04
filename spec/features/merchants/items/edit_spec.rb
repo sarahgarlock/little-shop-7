@@ -21,15 +21,6 @@ RSpec.describe 'Merchant Items', type: :feature do
       @invoiceitem4 = InvoiceItem.create!(item_id: @item4.id, invoice_id: @invoice4.id, quantity: 10, unit_price: 1000, status: 1)
     end
 
-    # 7. Merchant Items Show Page
-    it "links to item show page" do
-      visit "/merchants/#{@merchant1.id}/items/#{@item1.id}"
-      
-      expect(page).to have_content(@item1.name)
-      expect(page).to have_content(@item1.description)
-      expect(page).to have_content(@item1.unit_price)
-    end
-
     # 8. Merchant Item Update
     it "has edit item form" do
       visit "/merchants/#{@merchant1.id}/items/#{@item1.id}"
