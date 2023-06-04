@@ -19,4 +19,16 @@ class Merchant < ApplicationRecord
       "invalid code"
     end
   end
+
+  def best_day
+    invoice_items
+    .joins(invoice: :transactions)
+    .select("DATE(invoices.created_at), 
+      sum(transactions.result), 
+      sum(invoice_items.quantity*invoice_items.unit_price) as revenue")
+    .group("DATE(invoices.created_at)")
+    .having("sum(transactions.result) > 0")
+    .order("revenue desc")
+    .first.created_at
+  end
 end

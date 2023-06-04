@@ -7,12 +7,13 @@ RSpec.describe Merchant, type: :model do
     @item2 = Item.create!(name: "printer ink", description: "xxxxxxx", unit_price: 11, merchant_id: @merchant1.id)
     @item3 = Item.create!(name: "pens", description: "xxxxxxx", unit_price: 12, merchant_id: @merchant1.id)
     @customer1 = Customer.create!(first_name: "Andy", last_name: "S")
-    @invoice1 = Invoice.create!(customer_id: @customer1.id, status: 1)
-    @invoice2 = Invoice.create!(customer_id: @customer1.id, status: 1)
-    @invoice3 = Invoice.create!(customer_id: @customer1.id, status: 1)
+    @invoice1 = Invoice.create!(customer_id: @customer1.id, status: 1, created_at: "2023-06-03 03:49:12.81835")
+    @invoice2 = Invoice.create!(customer_id: @customer1.id, status: 1, created_at: "2023-06-02 03:49:12.81835")
+    @invoice3 = Invoice.create!(customer_id: @customer1.id, status: 1, created_at: "2023-06-06 03:49:12.81835")
     @invoiceitem1 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 100, unit_price: 10, status: 1)
     @invoiceitem2 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice2.id, quantity: 100, unit_price: 10, status: 1)
     @invoiceitem3 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice3.id, quantity: 100, unit_price: 10, status: 1)
+    
   end
   describe 'relationships' do
     it { should have_many :items }
@@ -36,6 +37,17 @@ RSpec.describe Merchant, type: :model do
       expect(@merchant1.status).to eq("disabled")
 
       expect(@merchant1.update_status("foo")).to eq("invalid code")
+    end
+
+    it 'best_day' do 
+      invoiceitem4 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice3.id, quantity: 100, unit_price: 10, status: 1)
+      invoiceitem5 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice2.id, quantity: 100, unit_price: 10, status: 1)
+      invoiceitem6 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice1.id, quantity: 100, unit_price: 10, status: 1)
+      invoiceitem7 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice1.id, quantity: 100, unit_price: 10, status: 1)
+      invoiceitem8 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice3.id, quantity: 100, unit_price: 10, status: 1)
+      invoiceitem9 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice3.id, quantity: 100, unit_price: 10, status: 1)
+
+      expect(@merchant1.best_day).to eq(@invoice3.created_at)
     end
   end
 
