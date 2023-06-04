@@ -25,15 +25,15 @@ RSpec.describe Merchant, type: :model do
     end
 
     it 'update_status' do 
-      expect(@merchant1.status).to eq("enabled")
-
-      @merchant1.update_status("1")
-
       expect(@merchant1.status).to eq("disabled")
 
       @merchant1.update_status("0")
 
       expect(@merchant1.status).to eq("enabled")
+
+      @merchant1.update_status("1")
+
+      expect(@merchant1.status).to eq("disabled")
 
       expect(@merchant1.update_status("foo")).to eq("invalid code")
     end

@@ -1,5 +1,5 @@
-<%= form_with url: "/admin/merchants/#{@merchant.id}", method: :patch, data: {turbo: false}, local: true do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name, value: "#{@merchant.name}" %>
-  <%= f.submit %>
-<% end %>
+<h2> Edit Merchant </h2>
+<%= render partial: "new_edit", locals: {
+  path: "/admin/merchants/#{@merchant.id}",
+  method: :patch
+  } %>
