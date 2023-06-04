@@ -17,7 +17,7 @@ RSpec.describe "Admin Merchant Index", type: :feature do
     visit admin_merchants_path
 
     within("#merchant-#{@merchant[0].id}") do 
-      expect(page).to have_content("enabled")
+      expect(page).to have_content("disabled")
     end
     
     within("#merchant-#{@merchant[1].id}") do 
@@ -36,12 +36,12 @@ RSpec.describe "Admin Merchant Index", type: :feature do
     expect(page).to have_button("Enable #{@merchant[2].name}")
     expect(page).to have_button("Enable #{@merchant[1].name}")
     expect(page).to have_button("Enable #{@merchant[0].name}")
-    click_button "Disable #{@merchant[0].name}"
+    click_button "Enable #{@merchant[0].name}"
     
     expect(current_path).to eq(admin_merchants_path)
     
     within("#merchant-#{@merchant[0].id}") do 
-      expect(page).to have_content("disabled")
+      expect(page).to have_content("enabled")
     end
   end
 
@@ -67,5 +67,13 @@ RSpec.describe "Admin Merchant Index", type: :feature do
       expect(page).to have_content("#{@merchant[1].name}")
       expect(page).to have_content("#{@merchant[2].name}")
     end
+  end
+
+  it "has a link to create a new merchant" do
+    visit admin_merchants_path
+
+    click_link "Create a New Merchant" 
+
+    expect(current_path).to eq(new_admin_merchant_path)
   end
 end
