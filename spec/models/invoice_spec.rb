@@ -80,4 +80,40 @@ RSpec.describe Invoice, type: :model do
       expect(@invoice1.total_revenue(@invoice1)).to eq(1000)
     end
   end
+  describe "instance methods for invoice_items" do 
+    before(:each) do 
+      @customer = Customer.create!(first_name: "Jenny", last_name: "Lawson")
+      @merchant = Merchant.create!(name: "Pens R Us")
+      @invoice = Invoice.create!(status: 0, customer_id: @customer.id)
+      @item1 = create(:item, merchant_id: @merchant.id)
+      @item2 = create(:item, merchant_id: @merchant.id)
+      @item3 = create(:item, merchant_id: @merchant.id)
+      @item4 = create(:item, merchant_id: @merchant.id)
+      @invoice_item1 = InvoiceItem.create!(unit_price: 3, quantity: 5, item_id: @item1.id, invoice_id: @invoice.id)
+      @invoice_item2 = InvoiceItem.create!(unit_price: 8, quantity: 10, item_id: @item2.id, invoice_id: @invoice.id)
+      @invoice_item3= InvoiceItem.create!(unit_price: 10, quantity: 12, item_id: @item3.id, invoice_id: @invoice.id)
+      @invoice_item4 = InvoiceItem.create!(unit_price: 12, quantity: 4, item_id: @item4.id, invoice_id: @invoice.id)
+    end
+
+    it "#quantity_of_item" do 
+      expect(@invoice.quantity_of_item(@item1)).to eq(5)
+      expect(@invoice.quantity_of_item(@item2)).to eq(10)
+      expect(@invoice.quantity_of_item(@item3)).to eq(12)
+      expect(@invoice.quantity_of_item(@item4)).to eq(4)
+    end
+
+    it "#price_sold" do 
+      expect(@invoice.price_sold(@item1)).to eq(3)
+      expect(@invoice.price_sold(@item2)).to eq(8)
+      expect(@invoice.price_sold(@item3)).to eq(10)
+      expect(@invoice.price_sold(@item4)).to eq(12)
+    end
+
+    it "#invoice_item_status" do 
+      expect(@invoice.invoice_item_status(@item1)).to eq(@invoice_item1.status)
+      expect(@invoice.invoice_item_status(@item2)).to eq(@invoice_item2.status)
+      expect(@invoice.invoice_item_status(@item3)).to eq(@invoice_item3.status)
+      expect(@invoice.invoice_item_status(@item4)).to eq(@invoice_item4.status)
+    end
+  end
 end
