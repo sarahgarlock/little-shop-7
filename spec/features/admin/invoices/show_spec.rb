@@ -33,5 +33,12 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
       expect(page).to have_content("Item sold for: #{@invoice.price_sold(@item1)}")
       expect(page).to have_content("Order Status: #{@invoice.invoice_item_status(@item1)}")
     end
+
+    within("#item-#{@item2.id}") do 
+      expect(page).to have_content("Item: #{@item2.name}")
+      expect(page).to have_content("Quantity: #{@invoice.quantity_of_item(@item2)}")
+      expect(page).to have_content("Item sold for: #{@invoice.price_sold(@item2)}")
+      expect(page).to have_content("Order Status: #{@invoice.invoice_item_status(@item2)}")
+    end
   end
 end
