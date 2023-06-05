@@ -5,20 +5,32 @@ RSpec.describe 'Merchant Items', type: :feature do
     before :each do
       @merchant1 = Merchant.create!(name: "Pen Inc.")
       @merchant2 = Merchant.create!(name: "Ctrl+Alt+Elite")
-      @item1 = Item.create!(name: "pen ink", description: "xxxxxxx", unit_price: 10, merchant_id: @merchant1.id, status: 0)
-      @item2 = Item.create!(name: "printer ink", description: "xxxxxxx", unit_price: 11, merchant_id: @merchant1.id, status: 0)
-      @item3 = Item.create!(name: "pens", description: "xxxxxxx", unit_price: 12, merchant_id: @merchant1.id, status: 1)
-      @item4 = Item.create!(name: "laptops", description: "xxxxxxx", unit_price: 12, merchant_id: @merchant2.id, status: 0)
+
+      @item1 = Item.create!(name: "Pen Ink", description: "xxxxxxx", unit_price: 10, merchant_id: @merchant1.id, status: 0)
+      @item2 = Item.create!(name: "Printer Ink", description: "xxxxxxx", unit_price: 11, merchant_id: @merchant1.id, status: 0)
+      @item3 = Item.create!(name: "Pens", description: "xxxxxxx", unit_price: 12, merchant_id: @merchant1.id, status: 1)
+      @item4 = Item.create!(name: "Laptops", description: "xxxxxxx", unit_price: 12, merchant_id: @merchant2.id, status: 0)
+      @item5 = Item.create!(name: "Notebooks", description: "Three Ring Binders", unit_price: 15, merchant_id: @merchant1.id, status: 0)
+      @item6 = Item.create!(name: "Pencils", description: "#2", unit_price: 1, merchant_id: @merchant1.id, status: 0)
+
       @customer1 = Customer.create!(first_name: "Andy", last_name: "S")
       @customer2 = Customer.create!(first_name: "Billy", last_name: "Bob")
+
       @invoice1 = Invoice.create!(customer_id: @customer1.id, status: 1)
       @invoice2 = Invoice.create!(customer_id: @customer1.id, status: 1)
       @invoice3 = Invoice.create!(customer_id: @customer1.id, status: 1)
       @invoice4 = Invoice.create!(customer_id: @customer2.id, status: 1)
+
       @invoiceitem1 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 100, unit_price: 10, status: 1)
-      @invoiceitem2 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice2.id, quantity: 100, unit_price: 10, status: 1)
-      @invoiceitem3 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice3.id, quantity: 100, unit_price: 10, status: 1)
-      @invoiceitem4 = InvoiceItem.create!(item_id: @item4.id, invoice_id: @invoice4.id, quantity: 10, unit_price: 1000, status: 1)
+      @invoiceitem2 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice2.id, quantity: 100, unit_price: 11, status: 1)
+      @invoiceitem3 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice3.id, quantity: 100, unit_price: 12, status: 1)
+      @invoiceitem4 = InvoiceItem.create!(item_id: @item4.id, invoice_id: @invoice4.id, quantity: 10, unit_price: 12, status: 1)
+      @invoiceitem5 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice1.id, quantity: 100, unit_price: 11, status: 1)
+      @invoiceitem6 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice1.id, quantity: 100, unit_price: 12, status: 1)
+      @invoiceitem7 = InvoiceItem.create!(item_id: @item5.id, invoice_id: @invoice1.id, quantity: 100, unit_price: 15, status: 1)
+      @invoiceitem8 = InvoiceItem.create!(item_id: @item6.id, invoice_id: @invoice1.id, quantity: 100, unit_price: 1, status: 1)
+
+      @transaction1 = Transaction.create!(invoice_id: @invoice1.id, cc_num: 1234567899876543, cc_exp: 23485720, result: 0)
     end
 
     # 6. Merchant Items Index Page
@@ -77,11 +89,48 @@ RSpec.describe 'Merchant Items', type: :feature do
         expect(page).to_not have_content(@item3.name)
       end
 
-
       within "#disabled" do
         expect(page).to_not have_content(@item1.name)
         expect(page).to_not have_content(@item2.name)
         expect(page).to have_content(@item3.name)
+      end
+    end
+
+    # 12. Merchant Items Index: 5 most popular items
+    
+    # As a merchant
+    # When I visit my items index page
+    # Then I see the names of the top 5 most popular items ranked by total revenue generated
+    # And I see that each item name links to my merchant item show page for that item
+    # And I see the total revenue generated next to each item name
+    
+    # Notes on Revenue Calculation:
+    # - Only invoices with at least one successful transaction should count towards revenue
+    # - Revenue for an invoice should be calculated as the sum of the revenue of all invoice items
+    # - Revenue for an invoice item should be calculated as the invoice item unit price multiplied by the quantity (do not use the item unit price)
+    it "shows popular items for the merchant" do
+      visit "/merchants/#{@merchant1.id}/items"
+
+      within "#popular-items" do
+        expect(@item5.name).to appear_before(@item3.name)
+        expect(@item3.name).to appear_before(@item2.name)
+        expect(@item2.name).to appear_before(@item1.name)
+        expect(@item1.name).to appear_before(@item6.name)
+
+        expect(page).to have_link "#{@item5.revenue}"
+        expect(page).to have_link "#{@item3.revenue}"
+        expect(page).to have_link "#{@item2.revenue}"
+        expect(page).to have_link "#{@item1.revenue}"
+        expect(page).to have_link "#{@item6.revenue}"
+
+        expect(@item5.revenue).to eq(1500)
+        expect(@item3.revenue).to eq(1200)
+        expect(@item2.revenue).to eq(1100)
+        expect(@item1.revenue).to eq(1000)
+        expect(@item6.revenue).to eq(100)
+
+        click_link "#{@item1.revenue}"
+        expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}")
       end
     end
   end
