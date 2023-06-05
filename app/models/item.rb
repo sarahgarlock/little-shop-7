@@ -8,4 +8,12 @@ class Item < ApplicationRecord
   validates :description, presence: true
   validates :unit_price, presence: true, numericality: true
   validates :merchant_id, presence: true
+
+  def self.revenue
+    
+  end
+
+  def self.top_5_items(merchant_id)
+
+  end
 end
