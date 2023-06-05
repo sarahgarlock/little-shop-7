@@ -77,7 +77,7 @@ RSpec.describe Invoice, type: :model do
       @invoiceitem3 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice3.id, quantity: 105, unit_price: 20, status: 1)
       @invoiceitem4 = InvoiceItem.create!(item_id: @item4.id, invoice_id: @invoice4.id, quantity: 10, unit_price: 1000, status: 1)
 
-      expect(@invoice1.total_revenue(@invoice1)).to eq(1000)
+      expect(@invoice1.total_revenue).to eq(1000)
     end
   end
   describe "instance methods for invoice_items" do 

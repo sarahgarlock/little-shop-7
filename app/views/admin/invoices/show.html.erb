@@ -2,6 +2,13 @@
 <p> Status: <%= @invoice.status %></p>
 <p> Created at: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
 <p> Customer: <%= @invoice.customer.first_name %>, <%= @invoice.customer.last_name %></p>
+<p> Total Revenue: <%= @invoice.total_revenue %></p>
+<p>Invoice Status: <%= @invoice.status %></p>
+<%= form_with url: "/admin/invoices/#{@invoice.id}", method: :patch, data: {turbo: false}, local: true do |f| %>
+  <%= f.select :status, ["cancelled", "completed", "in progress"], selected: @invoice.status %>
+  <%= f.submit "Update Invoice Status" %>
+<% end %>
+
 <h3> Items on this invoice: </h3> 
 <% @items.each do |item| %>
   <section id="item-<%= item.id%>">
