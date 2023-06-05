@@ -1,11 +1,11 @@
 class Merchant::ItemsController < ApplicationController
-  # before_action :set_merchant
 
   def index
     @merchant = Merchant.find(params[:merchant_id])
     @items = @merchant.items
     @enabled_items = @items.enabled
     @disabled_items = @items.disabled
+    @item_rev = @items.revenue
   end
 
   def show
@@ -57,10 +57,6 @@ class Merchant::ItemsController < ApplicationController
   end
 
   private 
-  # def set_merchant
-  #   @merchant = Merchant.find(params[:merchant_id])
-  # end
-
   def item_params
     params.permit(:name, :description, :unit_price)
   end

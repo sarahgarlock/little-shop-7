@@ -28,3 +28,10 @@
     <p><%= item.name %></p>
   <% end %>
 </div>
+
+<div id ="popular-items">
+  <h3>Popular Items</h3>
+  <% @item_rev.each do |item| %>
+    <p><%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> $<%= item.item_rev_dollars %> </p>
+  <% end %>
+</div>

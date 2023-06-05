@@ -2,4 +2,15 @@
 <p> Status: <%= @invoice.status %></p>
 <p> Created at: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
 <p> Customer: <%= @invoice.customer.first_name %>, <%= @invoice.customer.last_name %></p>
+<h3> Items on this invoice: </h3> 
+<% @items.each do |item| %>
+  <section id="item-<%= item.id%>">
+  <p>Item: <%= item.name %></p>
+  <ul>
+    <li>Quantity: <%= @invoice.quantity_of_item(item) %></li>
+    <li>Item sold for: <%= @invoice.price_sold(item) %></li>
+    <li>Order Status: <%= @invoice.invoice_item_status(item) %></li>
+  </ul>
+  </section>
+<% end %>
 
