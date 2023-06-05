@@ -21,6 +21,7 @@ class Merchant < ApplicationRecord
   end
 
   def best_day
+    best_date = 
     invoice_items
     .joins(invoice: :transactions)
     .select("DATE(invoices.created_at) as date, 
@@ -29,6 +30,12 @@ class Merchant < ApplicationRecord
     .group("date")
     .having("sum(transactions.result) > 0")
     .order("revenue desc")
-    .first.date
+    .first
+    
+    if best_date != nil 
+      best_date.date
+    else
+      nil
+    end
   end
 end
