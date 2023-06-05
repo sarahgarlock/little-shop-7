@@ -4,9 +4,11 @@
 <p> Customer: <%= @invoice.customer.first_name %>, <%= @invoice.customer.last_name %></p>
 <h3> Items on this invoice: </h3> 
 <% @items.each do |item| %>
+  <section id="item-<%= item.id%>">
   <p>Item: <%= item.name %></p>
-  <p>Quantity: <%= item.invoice_item.quantity %></p>
-  <p>Item sold for: <%= item.invoice_item.unit_price %></p>
-  <p>Order Status: <%= item.invoice_item.status %></p>
+  <p>Quantity: <%= @invoice.quantity_of_item(item) %></p>
+  <p>Item sold for: <%= @invoice.price_sold(item) %></p>
+  <p>Order Status: <%= @invoice.invoice_item_status(item) %></p>
+  </section>
 <% end %>
 
