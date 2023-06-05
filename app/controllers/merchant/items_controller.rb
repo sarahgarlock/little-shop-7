@@ -6,7 +6,6 @@ class Merchant::ItemsController < ApplicationController
     @enabled_items = @items.enabled
     @disabled_items = @items.disabled
     @item_rev = @items.revenue
-    # require 'pry'; binding.pry
   end
 
   def show
