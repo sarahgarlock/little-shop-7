@@ -93,18 +93,16 @@ RSpec.describe "Admin Merchant Index", type: :feature do
 
   it "lists the top selling date for each of the top 5 merchants" do 
     visit admin_merchants_path
-    require 'pry'; binding.pry
-    save_and_open_page
 
-    within("#merchant-#{@merchant[0].id}") do 
+    within("#merchant-best-#{@merchant[0].id}") do 
       expect(page).to have_content(@merchant[0].best_day)
     end
 
-    within("#merchant-#{@merchant[1].id}") do 
+    within("#merchant-best-#{@merchant[1].id}") do 
       expect(page).to have_content(@merchant[1].best_day)
     end
 
-    within("#merchant-#{@merchant[2].id}") do 
+    within("#merchant-best-#{@merchant[2].id}") do 
       expect(page).to have_content(@merchant[2].best_day)
     end
 

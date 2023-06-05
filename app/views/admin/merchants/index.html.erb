@@ -5,7 +5,7 @@
 <h2> Top 5 Merchants by Revenue </h2>
 <section id="top-5">
 <% @merchants_top_5.each do |merchant| %>
-  <div id="merchant-<%= merchant.id %>">
+  <div id="merchant-best-<%= merchant.id %>">
   <%= link_to "#{merchant.name}", admin_merchants_path(merchant) %>
   <%= "total revenue" %>
   <p> Top selling date for <%= merchant.name %> was <%= merchant.best_day %> </p>
