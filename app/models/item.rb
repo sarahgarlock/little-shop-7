@@ -22,5 +22,22 @@ class Item < ApplicationRecord
     self.invoice_items[0].quantity * self.invoice_items[0].unit_price
   end
 
-  
+  def best_day
+    best_date = 
+    invoice_items
+    .joins(invoice: :transactions)
+    .select("DATE(invoices.created_at) as date, 
+      sum(transactions.result), 
+      sum(invoice_items.quantity*invoice_items.unit_price) as revenue")
+    .group("date")
+    .having("sum(transactions.result) > 0")
+    .order("revenue desc")
+    .first
+    
+    if best_date != nil 
+      best_date.date
+    else
+      nil
+    end
+  end
 end
