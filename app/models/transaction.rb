@@ -1,4 +1,4 @@
 class Transaction < ApplicationRecord
   belongs_to :invoice
-  enum result: {success: 0, failed: 1}
+  enum result: {failed: 0, success: 1}
 end
