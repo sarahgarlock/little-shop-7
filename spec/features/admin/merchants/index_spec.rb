@@ -63,6 +63,14 @@ RSpec.describe "Admin Merchant Index", type: :feature do
     within("#merchant-#{@merchant[0].id}") do 
       expect(page).to have_content("enabled")
     end
+
+    click_button "Disable #{@merchant[0].name}"
+    
+    expect(current_path).to eq(admin_merchants_path)
+    
+    within("#merchant-#{@merchant[0].id}") do 
+      expect(page).to have_content("disabled")
+    end
   end
 
   it "displays merchants separated by status" do 
