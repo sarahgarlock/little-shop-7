@@ -30,7 +30,7 @@ RSpec.describe 'Merchant Items', type: :feature do
       @invoiceitem7 = InvoiceItem.create!(item_id: @item5.id, invoice_id: @invoice1.id, quantity: 100, unit_price: 15, status: 1)
       @invoiceitem8 = InvoiceItem.create!(item_id: @item6.id, invoice_id: @invoice1.id, quantity: 100, unit_price: 1, status: 1)
 
-      @transaction1 = Transaction.create!(invoice_id: @invoice1.id, cc_num: 1234567899876543, cc_exp: 23485720, result: 0)
+      @transaction1 = Transaction.create!(invoice_id: @invoice1.id, cc_num: 1234567899876543, cc_exp: 23485720, result: 1)
     end
 
     # 6. Merchant Items Index Page
@@ -117,19 +117,20 @@ RSpec.describe 'Merchant Items', type: :feature do
         expect(@item2.name).to appear_before(@item1.name)
         expect(@item1.name).to appear_before(@item6.name)
 
-        expect(page).to have_link "#{@item5.revenue}"
-        expect(page).to have_link "#{@item3.revenue}"
-        expect(page).to have_link "#{@item2.revenue}"
-        expect(page).to have_link "#{@item1.revenue}"
-        expect(page).to have_link "#{@item6.revenue}"
+        expect(page).to have_link "#{@item5.name}"
+        expect(page).to have_link "#{@item3.name}"
+        expect(page).to have_link "#{@item2.name}"
+        expect(page).to have_link "#{@item1.name}"
+        expect(page).to have_link "#{@item6.name}"
+       
+        expect(@item5.item_rev_dollars).to eq(1500)
+        expect(@item3.item_rev_dollars).to eq(1200)
+        expect(@item2.item_rev_dollars).to eq(1100)
+        expect(@item1.item_rev_dollars).to eq(1000)
+        expect(@item6.item_rev_dollars).to eq(100)
 
-        expect(@item5.revenue).to eq(1500)
-        expect(@item3.revenue).to eq(1200)
-        expect(@item2.revenue).to eq(1100)
-        expect(@item1.revenue).to eq(1000)
-        expect(@item6.revenue).to eq(100)
 
-        click_link "#{@item1.revenue}"
+        click_link "#{@item1.name}"
         expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}")
       end
     end
