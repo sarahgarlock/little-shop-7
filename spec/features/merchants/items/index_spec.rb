@@ -91,5 +91,18 @@ RSpec.describe 'Merchant Items', type: :feature do
       expect(page).to have_link "Create new item"
       click_link "Create new item"
     end
+#   13.  Merchant Items Index: Top Item's Best Day
+# As a merchant
+# When I visit my items index page
+# Then next to each of the 5 most popular items I see the date with the most sales for each item.
+# And I see a label “Top selling date for was "
+
+# Note: use the invoice date. If there are multiple days with equal number of sales, return the most recent day.
+    it "can add new items" do 
+      visit "/merchants/#{@merchant1.id}/items"
+# save_and_open_page
+      # expect(page).to have_content 
+      
+    end  
   end
 end

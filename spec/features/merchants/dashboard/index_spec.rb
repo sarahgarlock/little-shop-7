@@ -4,7 +4,6 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
     before :each do
         @merchant1 = Merchant.create!(name: "Pen Inc.")
         @merchant2 = Merchant.create!(name: "Ctrl+Alt+Elite")
-        # @item = create_list(:item, 6, merchant: @merchant1)
         @item1 = Item.create!(name: "pen ink", description: "xxxxxxx", unit_price: 10, merchant_id: @merchant1.id)
         @item2 = Item.create!(name: "printer ink", description: "xxxxxxx", unit_price: 11, merchant_id: @merchant1.id)
         @item3 = Item.create!(name: "pens", description: "xxxxxxx", unit_price: 12, merchant_id: @merchant1.id)
@@ -12,13 +11,11 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
         @item5 = Item.create!(name: "paperclips", description: "xxxxxxx", unit_price: 20, merchant_id: @merchant1.id)
         @item6 = Item.create!(name: "white-out", description: "xxxxxxx", unit_price: 5, merchant_id: @merchant1.id)
         @customer1 = create(:customer)
-        # @customer1 = Customer.create!(first_name: "Andy", last_name: "S")
         @customer2 = create(:customer)
         @customer3 = create(:customer)
         @customer4 = create(:customer)
         @customer5 = create(:customer)
         @customer6 = create(:customer)
-        # @invoice = create_list(:invoice, 6, status: 1)
         @invoice1 = Invoice.create!(customer_id: @customer1.id, status: 1)
         @invoice2 = Invoice.create!(customer_id: @customer1.id, status: 1)
         @invoice3 = Invoice.create!(customer_id: @customer1.id, status: 1)
@@ -33,9 +30,6 @@ RSpec.describe 'Merchant Dashboard', type: :feature do
         @invoice_item4 = create(:invoice_item, item: @item4, invoice: @invoice6)
         @invoice_item5 = create(:invoice_item, item: @item5, invoice: @invoice7)
         @invoice_item6 = create(:invoice_item, item: @item6, invoice: @invoice8)
-        # @invoiceitem1 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 100, unit_price: 10, status: 1)
-        # @invoiceitem2 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice2.id, quantity: 100, unit_price: 10, status: 1)
-        # @invoiceitem3 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice3.id, quantity: 100, unit_price: 10, status: 1)
         @transaction_1 = @invoice1.transactions.create!(cc_num: 467830927685, 
             cc_exp: 23485720,
             result: 0)
