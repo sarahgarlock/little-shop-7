@@ -17,11 +17,12 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
 
   it "displays all invoice attributes along with customer first and last name" do 
     visit "/admin/invoices/#{@invoice.id}"
-    within("#item-#{@item1.id}")
+    
     expect(page).to have_content("ID: #{@invoice.id}")
     expect(page).to have_content("Status: #{@invoice.status}")
     expect(page).to have_content("Created at: #{@invoice.created_at.strftime("%A, %B %d, %Y")}")
     expect(page).to have_content("Customer: #{@invoice.customer.first_name}, #{@invoice.customer.last_name}")
+    expect(page).to have_content("Total Revenue: #{@invoice.total_revenue}")
   end
   
   it "displays all items' information for each invoice" do 
