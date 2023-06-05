@@ -8,11 +8,10 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
 
   it "displays all invoice attributes along with customer first and last name" do 
     visit admin_invoices_path(@invoice)
-
-    expect(page).to have_content("#{@invoice.id}")
-    expect(page).to have_content("#{@invoice.status}")
-    expect(page).to have_content("#{@invoice.created_at.strftime("%A, %B %d, %Y")}")
-    expect(page).to have_content("#{@customer.first_name}")
-    expect(page).to have_content("#{@customer.last_name}")
+save_and_open_page 
+    expect(page).to have_content("ID: #{@invoice.id}")
+    expect(page).to have_content("Status: #{@invoice.status}")
+    expect(page).to have_content("Created at: #{@invoice.created_at.strftime("%A, %B %d, %Y")}")
+    expect(page).to have_content("Customer: #{@customer.first_name}, #{@customer.last_name}")
   end
 end
