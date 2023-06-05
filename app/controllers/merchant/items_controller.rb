@@ -4,6 +4,7 @@ class Merchant::ItemsController < ApplicationController
     @items = @merchant.items
     @enabled_items = @items.enabled
     @disabled_items = @items.disabled
+    require 'pry'; binding.pry
   end
 
   def show
