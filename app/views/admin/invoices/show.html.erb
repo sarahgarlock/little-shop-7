@@ -5,7 +5,7 @@
 <h3> Items on this invoice: </h3> 
 <% @items.each do |item| %>
   <p>Item: <%= item.name %></p>
-  <p>Quantit: <%= item.invoice_item.quantity %></p>
+  <p>Quantity: <%= item.invoice_item.quantity %></p>
   <p>Item sold for: <%= item.invoice_item.unit_price %></p>
   <p>Order Status: <%= item.invoice_item.status %></p>
 <% end %>

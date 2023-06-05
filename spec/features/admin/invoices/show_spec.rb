@@ -3,10 +3,16 @@ require "rails_helper"
 RSpec.describe "Admin Invoice Show Page", type: :feature do 
   before(:each) do 
     @invoice = create(:invoice)
-    @item1 = @invoice.create(:item)
-    @item2 = @invoice.create(:item)
-    @item3 = @invoice.create(:item)
-    @item4 = @invoice.create(:item)
+    @invoice_item1 = create(:invoice_item, invoice_id: @invoice.id)
+    @invoice_item2 = create(:invoice_item, invoice_id: @invoice.id)
+    @invoice_item3= create(:invoice_item, invoice_id: @invoice.id)
+    @invoice_item4 = create(:invoice_item, invoice_id: @invoice.id)
+    @merchant = create(:merchant)
+    @item1 = @invoice_item1.item.create(:item, merchant_id: @merchant.id)
+    @item2 = @invoice_item2.item.create(:item, merchant_id: @merchant.id)
+    @item3 = @invoice_item3.item.create(:item, merchant_id: @merchant.id)
+    @item4 = @invoice_item4.item.create(:item, merchant_id: @merchant.id)
+    require 'pry'; binding.pry
   end
 
   it "displays all invoice attributes along with customer first and last name" do 
