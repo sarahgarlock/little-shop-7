@@ -11,11 +11,11 @@
     <p>Item name:</b> <%= inv_item.item.name %></p>
     <p>Quantity:</b> <%= inv_item.quantity %></p>
     <p>Price per item:</b> <%= inv_item.unit_price %></p>
-    <p>Invoice Status:</b> <%= inv_item.status %> </p></p>
-    <%= form_with url: "/merchants/merchant_id/invoices/invoice_id", method: :patch do |f| %>
-      <%= f.label :status, "Item Status" %>
-      <%= f.select :status, options_for_select([["enabled", 0], ["disabled", 1]], selected: inv_item.status) %>
-      <%= f.submit "Update Item Status" %>
+    <p>Status:</b> <%= inv_item.status %> </p></p>
+    <%= form_with url: "/merchants/@merchant.id/invoices/@invoice.id", method: :patch do |f| %>
+      <%= f.label :itemstatus, "itemstatus" %>
+      <%= f.select(:itemstatus, [["enabled", 0], ["disabled", 1]], selected: inv_item.status) %>
+      <%= f.submit "Update Item Status", params: {:merchant_id => @merchant.id, :invoice_id => @invoice.id} %>
     <% end %>
     </div>
   <% end %>

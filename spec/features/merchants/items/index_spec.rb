@@ -120,7 +120,7 @@ RSpec.describe 'Merchant Items', type: :feature do
         expect(page).to have_link "#{@item2.name}"
         expect(page).to have_link "#{@item1.name}"
         expect(page).to have_link "#{@item6.name}"
-       
+      
         expect(@item5.item_rev_dollars).to eq(1500)
         expect(@item3.item_rev_dollars).to eq(1200)
         expect(@item2.item_rev_dollars).to eq(1100)

@@ -53,18 +53,23 @@ RSpec.describe 'Merchant Invoices', type: :feature do
 #   18. Merchant Invoice Show Page: Update Item Status
     it "can update an item's status with a select field" do 
       visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
-# save_and_open_page
-      # within "#{@item1.name}" do
-        expect(page).to have_field("Item Status")
-        expect(page).to have_content("#{@item1.status}")
-        click_on "Item Status"
-        select "disabled", from: "Item Status"
-        click_button "Update Item Status"
-      # end
 
+  save_and_open_page
+  # within "#{@item1.name}" do
+        expect(page).to have_select("itemstatus")
+        expect(page).to have_content("itemstatus enabled")
+        have_select "itemstatus", selected: "enabled"
+        select "disabled", from: "itemstatus"
+        # click_on "itemstatus"
+        # select "disabled", from :item_status
+        # choose "disabled"
+        # save_and_open_page
+        click_button "Update Item Status"
+  # end
       expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}")
-      expect(page).to have_content("#{@item1.status}")
+      expect(page).to have_content("Item Status disabled")
       # And I see that my Item's status has now been updated
     end
   end
 end
+# <%= f.select(:item_status, options_for_select([["enabled", 0], ["disabled", 1]], selected: inv_item.status)) %>
