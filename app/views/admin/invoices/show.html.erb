@@ -6,9 +6,11 @@
 <% @items.each do |item| %>
   <section id="item-<%= item.id%>">
   <p>Item: <%= item.name %></p>
-  <p>Quantity: <%= @invoice.quantity_of_item(item) %></p>
-  <p>Item sold for: <%= @invoice.price_sold(item) %></p>
-  <p>Order Status: <%= @invoice.invoice_item_status(item) %></p>
+  <ul>
+    <li>Quantity: <%= @invoice.quantity_of_item(item) %></li>
+    <li>Item sold for: <%= @invoice.price_sold(item) %></li>
+    <li>Order Status: <%= @invoice.invoice_item_status(item) %></li>
+  </ul>
   </section>
 <% end %>
 
