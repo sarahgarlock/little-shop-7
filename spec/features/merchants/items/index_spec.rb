@@ -133,18 +133,31 @@ RSpec.describe 'Merchant Items', type: :feature do
       end
     end
 
-    #   13.  Merchant Items Index: Top Item's Best Day
+    # 13.  Merchant Items Index: Top Item's Best Day
     # As a merchant
     # When I visit my items index page
     # Then next to each of the 5 most popular items I see the date with the most sales for each item.
-    # And I see a label “Top selling date for was "
+    # And I see a label “Top selling date for x was {date}"
 
     # Note: use the invoice date. If there are multiple days with equal number of sales, return the most recent day.
-    xit "can add new items" do 
+    it "can add new items" do 
       visit "/merchants/#{@merchant1.id}/items"
-    # save_and_open_page
-      # expect(page).to have_content 
       
+      within "#popular-items" do
+        
+        expect(page).to have_content(@item5.best_day.strftime("%A, %B %d, %Y"))
+        expect(page).to have_content(@item3.best_day.strftime("%A, %B %d, %Y"))
+        expect(page).to have_content(@item2.best_day.strftime("%A, %B %d, %Y"))
+        expect(page).to have_content(@item1.best_day.strftime("%A, %B %d, %Y"))
+        expect(page).to have_content(@item6.best_day.strftime("%A, %B %d, %Y"))
+        
+        expect(@item5.best_day.strftime("%A, %B %d, %Y")).to eq("Monday, June 05, 2023")
+        expect(@item3.best_day.strftime("%A, %B %d, %Y")).to eq("Monday, June 05, 2023")
+        expect(@item2.best_day.strftime("%A, %B %d, %Y")).to eq("Monday, June 05, 2023")
+        expect(@item1.best_day.strftime("%A, %B %d, %Y")).to eq("Monday, June 05, 2023")
+        expect(@item6.best_day.strftime("%A, %B %d, %Y")).to eq("Monday, June 05, 2023")
+        
+      end
     end  
   end
 end
