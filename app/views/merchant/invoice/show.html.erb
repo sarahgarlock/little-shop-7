@@ -4,11 +4,21 @@
   <p>Invoice creation date: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
   <p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 
-<div id="invoice_items">
+<section id="invoice_items">
   <h3>Items On This Invoice</h3>
   <p><% @invoice.invoice_items.each do |inv_item| %></p>
-    <p><b>Item name:</b> <%= inv_item.item.name %> <b>Quantity:</b> <%= inv_item.quantity %> <b>Price per item:</b> <%= inv_item.unit_price %> <b>Status:</b> <%= inv_item.status %> </p>
+    <div id="<%= inv_item.item.name %>">
+    <p>Item name:</b> <%= inv_item.item.name %></p>
+    <p>Quantity:</b> <%= inv_item.quantity %></p>
+    <p>Price per item:</b> <%= inv_item.unit_price %></p>
+    <p>Invoice Status:</b> <%= inv_item.status %> </p></p>
+    <%= form_with url: "/merchants/merchant_id/invoices/invoice_id", method: :patch do |f| %>
+      <%= f.label :status, "Item Status" %>
+      <%= f.select :status, options_for_select([["enabled", 0], ["disabled", 1]], selected: inv_item.status) %>
+      <%= f.submit "Update Item Status" %>
+    <% end %>
+    </div>
   <% end %>
-</div>
+</section>
 
 <h3> Total Revenue: <%= @revenue %> </h3>

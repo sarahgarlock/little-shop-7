@@ -98,7 +98,7 @@ RSpec.describe 'Merchant Items', type: :feature do
 # And I see a label “Top selling date for was "
 
 # Note: use the invoice date. If there are multiple days with equal number of sales, return the most recent day.
-    xit "can add new items" do 
+    xit "" do 
       visit "/merchants/#{@merchant1.id}/items"
 # save_and_open_page
       # expect(page).to have_content 
