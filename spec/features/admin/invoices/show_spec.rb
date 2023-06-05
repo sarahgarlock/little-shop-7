@@ -42,4 +42,22 @@ RSpec.describe "Admin Invoice Show Page", type: :feature do
       expect(page).to have_content("Order Status: #{@invoice.invoice_item_status(@item2)}")
     end
   end
+
+  it "displays a form to update the invoice status" do 
+    visit "/admin/invoices/#{@invoice.id}"
+    expect(page).to have_content("Invoice Status:")
+    expect(page).to have_field("status", with: "#{@invoice.status}")
+    
+    page.select "in progress", from: "status" 
+    click_button "Update Invoice Status"
+    
+    expect(current_path).to eq("/admin/invoices/#{@invoice.id}")
+    expect(page).to have_field("status", with: "in progress")
+
+    page.select "cancelled", from: "status" 
+    click_button "Update Invoice Status"
+    
+    expect(current_path).to eq("/admin/invoices/#{@invoice.id}")
+    expect(page).to have_field("status", with: "cancelled")
+  end
 end
