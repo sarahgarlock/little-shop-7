@@ -6,9 +6,15 @@ class Merchant::InvoiceController < ApplicationController
   end
 
   def update
-    # require 'pry'; binding.pry
-    # @merchant = Merchant.find(params[:merchant_id])
-    # @invoice = Invoice.find(params[:invoice_id])
-    # redirect_to "/merchants/#{@merchant.id}/invoices/#{@invoice1.id}"
+#     @merchant = Merchant.find(params[:merchant_id])
+#     @invoice = Invoice.find(params[:invoice_id])
+# # require 'pry'; binding.pry
+#     if params[:itemstatus] == 1
+#       @invoice.item.update(status: 0)
+#     elsif params[:itemstatus] == 0
+#       @invoice.item.update(status: 1)
+#     end
+#     @invoice.save
+    redirect_to "/merchants/#{@merchant.id}/invoices/#{@invoice.id}"
   end
 end
