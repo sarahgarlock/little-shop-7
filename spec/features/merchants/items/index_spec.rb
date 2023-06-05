@@ -96,18 +96,16 @@ RSpec.describe 'Merchant Items', type: :feature do
       end
     end
 
+    # 11. Merchant Item Create
+    it "can add new items" do 
+      visit "/merchants/#{@merchant1.id}/items"
+
+      expect(page).to have_link "Create new item"
+      click_link "Create new item"
+    end
+
+
     # 12. Merchant Items Index: 5 most popular items
-    
-    # As a merchant
-    # When I visit my items index page
-    # Then I see the names of the top 5 most popular items ranked by total revenue generated
-    # And I see that each item name links to my merchant item show page for that item
-    # And I see the total revenue generated next to each item name
-    
-    # Notes on Revenue Calculation:
-    # - Only invoices with at least one successful transaction should count towards revenue
-    # - Revenue for an invoice should be calculated as the sum of the revenue of all invoice items
-    # - Revenue for an invoice item should be calculated as the invoice item unit price multiplied by the quantity (do not use the item unit price)
     it "shows popular items for the merchant" do
       visit "/merchants/#{@merchant1.id}/items"
 
@@ -134,5 +132,19 @@ RSpec.describe 'Merchant Items', type: :feature do
         expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}")
       end
     end
+
+    #   13.  Merchant Items Index: Top Item's Best Day
+    # As a merchant
+    # When I visit my items index page
+    # Then next to each of the 5 most popular items I see the date with the most sales for each item.
+    # And I see a label “Top selling date for was "
+
+    # Note: use the invoice date. If there are multiple days with equal number of sales, return the most recent day.
+    xit "can add new items" do 
+      visit "/merchants/#{@merchant1.id}/items"
+    # save_and_open_page
+      # expect(page).to have_content 
+      
+    end  
   end
 end
