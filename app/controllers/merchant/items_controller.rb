@@ -37,9 +37,7 @@ class Merchant::ItemsController < ApplicationController
     if params[:disable] != nil
       @item.update(status: "disabled")
     elsif params[:enable] != nil
-      @item.update(status: "enabled")
-    else
-      @item.status
+      @item.update(status: "enabled") 
     end
     @item.save
     redirect_to "/merchants/#{@merchant.id}/items"
