@@ -50,5 +50,18 @@ RSpec.describe 'Merchant Invoices', type: :feature do
 
       expect(page).to have_content("Total Revenue: 1000")
     end
+#   18. Merchant Invoice Show Page: Update Item Status
+    it "can update an invoice_item's status with a select field" do 
+      visit "/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}"
+
+      expect(page).to have_select("itemstatus")
+      expect(page).to have_field("itemstatus", with: "pending")
+      
+      select "shipped", from: "itemstatus"
+      click_button "Update Item Status"
+      
+      expect(current_path).to eq("/merchants/#{@merchant1.id}/invoices/#{@invoice1.id}")
+      expect(page).to have_field("itemstatus", with: "shipped")
+    end
   end
 end
