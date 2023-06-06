@@ -4,10 +4,10 @@
 
 <h2> Top 5 Merchants by Revenue </h2>
 <section id="top-5">
-<% @merchants_top_5.each do |merchant| %>
+<% @top_merchants.each do |merchant| %>
   <div id="merchant-best-<%= merchant.id %>">
-  <%= link_to "#{merchant.name}", admin_merchants_path(merchant) %>
-  <%= "total revenue" %>
+  <%= link_to "#{merchant.name}", admin_merchants_path(merchant) %> 
+  <p>Total Revenue: <%= number_to_currency(merchant.total_revenue / 100.0) %></p>
   <p> Top selling date for <%= merchant.name %> was <%= merchant.best_day %> </p>
   </div>
 <% end %>
