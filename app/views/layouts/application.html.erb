@@ -17,6 +17,12 @@
 <% end %>
 
   <body>
+  <section>
+      <p><%= link_to "Home", "/" %></p>
+      <p><%= link_to "Admin Dashboard", "/admin" %></p>
+      <p><%= link_to "Merchant Index", "/admin/merchants" %></p>
+    </section>
+    
     <%= yield %>
   </body>
 </html>
