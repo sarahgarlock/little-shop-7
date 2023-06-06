@@ -6,15 +6,15 @@
 
 <section id="invoice_items">
   <h3>Items On This Invoice</h3>
-  <p><% @invoice.invoice_items.each do |inv_item| %></p>
-    <div id="<%= inv_item.item.name %>">
-    <p>Item name:</b> <%= inv_item.item.name %></p>
-    <p>Quantity:</b> <%= inv_item.quantity %></p>
-    <p>Price per item:</b> <%= inv_item.unit_price %></p>
-    <%= form_with url: "/merchants/#{@merchant.id}/invoices/#{@invoice.id}", method: :patch do |f| %>
+  <p><% @inv_items.each do |inv_item| %></p>
+    <div id="<%= inv_item.id %>">
+    <h4>Item name: <%= inv_item.item.name %></h4>
+    <p>Quantity: <%= inv_item.quantity %></p>
+    <p>Price per item: <%= inv_item.unit_price %></p>
+    <%= form_with url: "/merchants/#{@merchant.id}/invoices/#{@invoice.id}", method: :patch, :inv_item_id => inv_item.id do |f| %>
       <%= f.label :itemstatus, "Status of Item" %>
-      <%= f.select(:itemstatus, [["packaged", 0], ["pending", 1], ["shipped", 2]], selected: inv_item.status) %>
-      <%= f.submit "Update Item Status", params: {:merchant_id => @merchant.id, :invoice_id => @invoice.id} %>
+      <%= f.select(:itemstatus, ["packaged", "pending", "shipped"], selected: inv_item.status) %>
+      <%= f.submit "Update Item Status" %>
     <% end %>
     </div>
   <% end %>
