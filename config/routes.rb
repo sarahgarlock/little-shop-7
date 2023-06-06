@@ -13,11 +13,13 @@ Rails.application.routes.draw do
   
   get "/admin/invoices", to: "admin/invoices#index"
   get "/admin/invoices/:id", to: "admin/invoices#show", as: "admin_invoice"
+  patch "/admin/invoices/:id", to: "admin/invoices#update"
 
   get "/merchants/:merchant_id/items/new", to: "merchant/items#new"
   post "/merchants/:merchant_id/items/new", to: "merchant/items#create"
   get "/merchants/:merchant_id/dashboard", to: "merchant/dashboard#index"
   get "/merchants/:merchant_id/invoices/:invoice_id", to: "merchant/invoice#show"
+  patch "/merchants/:merchant_id/invoice_items/:invoice_item_id", to: "merchant/invoice_items#update"
   get "/merchants/:merchant_id/items", to: "merchant/items#index"
   get "/merchants/:merchant_id/items/:item_id", to: "merchant/items#show"
   get "/merchants/:merchant_id/items/:item_id/edit", to: "merchant/items#edit"

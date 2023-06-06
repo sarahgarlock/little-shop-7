@@ -18,11 +18,28 @@ class Invoice < ApplicationRecord
     joins(:invoice_items).select("invoices.*").where.not('invoice_items.status = 2').distinct 
   end
 
-  # def self.top_by_revenue
-  # end
+  def total_revenue
+    invoice_items.sum('quantity * unit_price')
+  end
 
+  def quantity_of_item(item)
+    invoice_item = invoice_items.find_by(item_id: item.id)
+    if invoice_item != nil
+      invoice_item.quantity
+    end
+  end
 
-  def total_revenue(invoice)
-    invoice.invoice_items.sum('quantity * unit_price')
+  def price_sold(item)
+    invoice_item = invoice_items.find_by(item_id: item.id)
+    if invoice_item != nil
+      invoice_item.unit_price
+    end
+  end
+
+  def invoice_item_status(item)
+    invoice_item = invoice_items.find_by(item_id: item.id)
+    if invoice_item != nil
+      invoice_item.status
+    end
   end
 end
