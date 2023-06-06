@@ -33,6 +33,7 @@ RSpec.describe "Admin Merchant Index", type: :feature do
     @invoiceitem_9 = InvoiceItem.create!(item_id: @item_6.id, invoice_id: @invoice_3.id, quantity: 60, unit_price: 10, status: 1)
 
   end
+
   describe "As an admin, when I visit the admin merchants index" do
     it "links to merchant show page" do 
       visit admin_merchants_path
@@ -137,7 +138,6 @@ RSpec.describe "Admin Merchant Index", type: :feature do
       visit admin_merchants_path
 
       within("#top-5") do 
-        save_and_open_page
         expect("#{@merchant_3.name}").to appear_before("#{@merchant_4.name}")
         expect("#{@merchant_4.name}").to appear_before("#{@merchant_2.name}")
         expect("#{@merchant_2.name}").to appear_before("#{@merchant_6.name}")
@@ -165,6 +165,8 @@ RSpec.describe "Admin Merchant Index", type: :feature do
         click_link "#{@merchant_3.name}"
         expect(current_path).to eq(admin_merchants_path(@merchant_3))
 
+        merchants = Merchant.top_by_revenue(5)
+        expect(merchants).to eq([@merchant_3, @merchant_4, @merchant_2, @merchant_6, @merchant_5])
       end
     end
   end
