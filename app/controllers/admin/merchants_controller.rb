@@ -20,7 +20,7 @@ class Admin::MerchantsController < ApplicationController
       flash[:notice] = "Merchant successfully updated."
     elsif params[:merchant_status].blank?
       redirect_to "/admin/merchants/#{merchant.id}/edit"
-      flash[:alert] = "Error: #{error_message(application.errors)}"
+      flash[:alert] = "Error: #{error_message(merchant.errors)}"
     else 
       redirect_to admin_merchants_path
     end
