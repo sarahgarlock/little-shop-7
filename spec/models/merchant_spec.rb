@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Merchant, type: :model do
   before :each do
-    @merchant1 = Merchant.create!(name: "Pen Inc.")
+    @merchant1 = Merchant.create!(name: "Pen Inc.", status: 1)
     @item1 = Item.create!(name: "pen ink", description: "xxxxxxx", unit_price: 10, merchant_id: @merchant1.id)
     @item2 = Item.create!(name: "printer ink", description: "xxxxxxx", unit_price: 11, merchant_id: @merchant1.id)
     @item3 = Item.create!(name: "pens", description: "xxxxxxx", unit_price: 12, merchant_id: @merchant1.id)
@@ -10,21 +10,23 @@ RSpec.describe Merchant, type: :model do
     @invoice1 = Invoice.create!(customer_id: @customer1.id, status: 1, created_at: "2023-06-03 03:49:12.81835")
     @invoice2 = Invoice.create!(customer_id: @customer1.id, status: 1, created_at: "2023-06-02 03:49:12.81835")
     @invoice3 = Invoice.create!(customer_id: @customer1.id, status: 1, created_at: "2023-06-06 03:49:12.81835")
-    @transaction1 = @invoice1.transactions.create!(result: 1)
-    @transaction2 = @invoice2.transactions.create!(result: 1)
-    @transaction3 = @invoice3.transactions.create!(result: 1)
+    @transaction1 = @invoice1.transactions.create!(cc_num: 1234567899876543, cc_exp: 9999999, result: 1)
+    @transaction2 = @invoice2.transactions.create!(cc_num: 1234567899876543, cc_exp: 9999999, result: 1)
+    @transaction3 = @invoice3.transactions.create!(cc_num: 1234567899876543, cc_exp: 9999999, result: 1)
     @invoiceitem1 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 100, unit_price: 10, status: 1)
     @invoiceitem2 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice2.id, quantity: 100, unit_price: 10, status: 1)
     @invoiceitem3 = InvoiceItem.create!(item_id: @item3.id, invoice_id: @invoice3.id, quantity: 100, unit_price: 10, status: 1)
-    
   end
+
   describe 'relationships' do
     it { should have_many :items }
     it { should have_many(:invoice_items).through(:items)}
+    it { should have_many(:invoices).through(:invoice_items)}
   end
 
   describe 'validations' do 
     it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:status) }
   end
   
   describe 'instance methods' do

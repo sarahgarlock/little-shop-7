@@ -1,8 +1,9 @@
 class Merchant < ApplicationRecord
+  validates :name, presence: true
+  validates :status, presence: true
   has_many :items
   has_many :invoice_items, through: :items
   has_many :invoices, through: :invoice_items
-  validates :name, presence: true
   enum status: {enabled: 0, disabled: 1}
 
   def items_ready_to_ship
