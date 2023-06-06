@@ -120,7 +120,7 @@ RSpec.describe 'Merchant Items', type: :feature do
         expect(page).to have_link "#{@item2.name}"
         expect(page).to have_link "#{@item1.name}"
         expect(page).to have_link "#{@item6.name}"
-       
+      
         expect(@item5.item_rev_dollars).to eq(1500)
         expect(@item3.item_rev_dollars).to eq(1200)
         expect(@item2.item_rev_dollars).to eq(1100)
@@ -137,18 +137,17 @@ RSpec.describe 'Merchant Items', type: :feature do
       visit "/merchants/#{@merchant1.id}/items"
       
       within "#popular-items" do
-        
-        expect(page).to have_content(@item5.best_day.strftime("%A, %B %d, %Y"))
-        expect(page).to have_content(@item3.best_day.strftime("%A, %B %d, %Y"))
-        expect(page).to have_content(@item2.best_day.strftime("%A, %B %d, %Y"))
-        expect(page).to have_content(@item1.best_day.strftime("%A, %B %d, %Y"))
-        expect(page).to have_content(@item6.best_day.strftime("%A, %B %d, %Y"))
-        
-        expect(@item5.best_day.strftime("%A, %B %d, %Y")).to eq("Monday, June 05, 2023")
-        expect(@item3.best_day.strftime("%A, %B %d, %Y")).to eq("Monday, June 05, 2023")
-        expect(@item2.best_day.strftime("%A, %B %d, %Y")).to eq("Monday, June 05, 2023")
-        expect(@item1.best_day.strftime("%A, %B %d, %Y")).to eq("Monday, June 05, 2023")
-        expect(@item6.best_day.strftime("%A, %B %d, %Y")).to eq("Monday, June 05, 2023")
+        expect(page).to have_content(@item5.best_day)
+        expect(page).to have_content(@item3.best_day)
+        expect(page).to have_content(@item2.best_day)
+        expect(page).to have_content(@item1.best_day)
+        expect(page).to have_content(@item6.best_day)
+
+        expect(@item5.best_day).to eq(Date.today)
+        expect(@item3.best_day).to eq(Date.today)
+        expect(@item2.best_day).to eq(Date.today)
+        expect(@item1.best_day).to eq(Date.today)
+        expect(@item6.best_day).to eq(Date.today)
       end
     end  
   end
