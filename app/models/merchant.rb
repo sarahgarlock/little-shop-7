@@ -1,5 +1,6 @@
 class Merchant < ApplicationRecord
   has_many :items
+  has_many :invoices, through: :invoice_items
   has_many :invoice_items, through: :items
   validates :name, presence: true
   enum status: {enabled: 0, disabled: 1}
@@ -18,6 +19,14 @@ class Merchant < ApplicationRecord
     else 
       "invalid code"
     end
+  end
+
+  def self.top_by_revenue(limit)
+    joins(invoices: :invoice_items)
+      .select('merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
+      .group(:id)
+      .order('total_revenue DESC')
+      .limit(limit)
   end
 
   def best_day
