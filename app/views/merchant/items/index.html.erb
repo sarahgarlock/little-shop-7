@@ -32,7 +32,7 @@
 <div id ="popular-items">
   <h3>Popular Items</h3>
   <% @item_rev.each do |item| %>
-    <p><%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> $<%= item.item_rev_dollars %> <%= item.best_day.strftime("%A, %B %d, %Y") %></p>
-    <p> Top selling date for <%= item.name %> was <%= item.best_day.strftime("%A, %B %d, %Y") %>
+    <p><%= link_to item.name, "/merchants/#{@merchant.id}/items/#{item.id}" %> $<%= item.item_rev_dollars %> <%= item.best_day %></p>
+    <p> Top selling date for <%= item.name %> was <%= item.best_day %>
   <% end  %> 
 </div>
