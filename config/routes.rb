@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   post "/merchants/:merchant_id/items/new", to: "merchant/items#create"
   get "/merchants/:merchant_id/dashboard", to: "merchant/dashboard#index"
   get "/merchants/:merchant_id/invoices/:invoice_id", to: "merchant/invoice#show"
-  patch "/merchants/:merchant_id/invoices/:invoice_id", to: "merchant/invoice#update"
+  patch "/merchants/:merchant_id/invoice_items/:invoice_item_id", to: "merchant/invoice_items#update"
   get "/merchants/:merchant_id/items", to: "merchant/items#index"
   get "/merchants/:merchant_id/items/:item_id", to: "merchant/items#show"
   get "/merchants/:merchant_id/items/:item_id/edit", to: "merchant/items#edit"
