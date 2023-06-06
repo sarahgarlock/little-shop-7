@@ -8,11 +8,11 @@ RSpec.describe Invoice, type: :model do
     it { should have_many(:items).through(:invoice_items) }
   end
 
+  describe "validations" do
+    it { should validate_presence_of(:status) }
+  end
+
   describe ".incomplete_invoice_ids" do
-    before(:each) do
-      #{packaged: 0, pending: 1, shipped: 2}
-    end
-    
     it "returns the IDs of incomplete invoices" do
       packaged_invoice_1 = create(:invoice_item, status: 0, created_at: Time.zone.parse('2022-01-03 12:00:00'))
       packaged_invoice_2 = create(:invoice_item, status: 0, created_at: Time.zone.parse('2022-01-07 12:00:00'))
@@ -89,10 +89,10 @@ RSpec.describe Invoice, type: :model do
       @item2 = create(:item, merchant_id: @merchant.id)
       @item3 = create(:item, merchant_id: @merchant.id)
       @item4 = create(:item, merchant_id: @merchant.id)
-      @invoice_item1 = InvoiceItem.create!(unit_price: 3, quantity: 5, item_id: @item1.id, invoice_id: @invoice.id)
-      @invoice_item2 = InvoiceItem.create!(unit_price: 8, quantity: 10, item_id: @item2.id, invoice_id: @invoice.id)
-      @invoice_item3= InvoiceItem.create!(unit_price: 10, quantity: 12, item_id: @item3.id, invoice_id: @invoice.id)
-      @invoice_item4 = InvoiceItem.create!(unit_price: 12, quantity: 4, item_id: @item4.id, invoice_id: @invoice.id)
+      @invoice_item1 = InvoiceItem.create!(unit_price: 3, quantity: 5, status: 1, item_id: @item1.id, invoice_id: @invoice.id)
+      @invoice_item2 = InvoiceItem.create!(unit_price: 8, quantity: 10, status: 1, item_id: @item2.id, invoice_id: @invoice.id)
+      @invoice_item3= InvoiceItem.create!(unit_price: 10, quantity: 12, status: 1, item_id: @item3.id, invoice_id: @invoice.id)
+      @invoice_item4 = InvoiceItem.create!(unit_price: 12, quantity: 4, status: 1, item_id: @item4.id, invoice_id: @invoice.id)
     end
 
     it "#quantity_of_item" do 
