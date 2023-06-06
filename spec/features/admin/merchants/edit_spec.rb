@@ -22,5 +22,16 @@ RSpec.describe "Admin Edit Merchant form page", type: :feature do
     expect(page).to have_content("Forest Gump")
   end
 
-#  add test for invalid data
+  it "has a form to update merchant information (invalid data)" do 
+    visit "/admin/merchants/#{@merchant[0].id}/edit"
+
+    expect(page).to have_field("Name", with: "#{@merchant[0].name}")
+    expect(page).to have_content("Edit Merchant")
+
+    fill_in "Name", with: "" 
+    click_button "Save"
+    
+    expect(page).to have_content("Error: Name can't be blank")
+    expect(current_path).to eq("/admin/merchants/#{@merchant[0].id}/edit")
+  end
 end
