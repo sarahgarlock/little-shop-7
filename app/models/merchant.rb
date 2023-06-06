@@ -1,7 +1,7 @@
 class Merchant < ApplicationRecord
   has_many :items
-  has_many :invoices, through: :invoice_items
   has_many :invoice_items, through: :items
+  has_many :invoices, through: :invoice_items
   validates :name, presence: true
   enum status: {enabled: 0, disabled: 1}
 
@@ -23,7 +23,7 @@ class Merchant < ApplicationRecord
 
   def self.top_by_revenue(limit)
     joins(invoices: :invoice_items)
-      .select('merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
+      .select('merchants.id, merchants.name, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
       .group(:id)
       .order('total_revenue DESC')
       .limit(limit)
@@ -46,5 +46,18 @@ class Merchant < ApplicationRecord
     else
       nil
     end
+  end
+
+  def total_revenue
+    self.invoice_items.sum("invoice_items.unit_price * invoice_items.quantity")
+  end
+
+  def self.top_by_revenue(limit)
+    joins(invoices: [:invoice_items, :transactions])
+      .select('merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
+      .where(transactions: { result: 1 })
+      .group("merchants.id")
+      .order('total_revenue DESC')
+      .limit(5)
   end
 end
