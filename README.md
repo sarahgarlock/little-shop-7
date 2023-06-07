@@ -3,7 +3,9 @@
 ## Little Esty Shop
 
 [Render Site](https://little-esty-shop-f3sg.onrender.com/)
+
 [Project Manager](https://github.com/users/sarahgarlock/projects/1/views/2)
+
 [DB Diagram](https://dbdiagram.io/d/647788ce722eb774942999b9)
 
 ## Contributors
