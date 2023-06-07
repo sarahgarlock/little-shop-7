@@ -18,6 +18,16 @@
 
   <body>
   <section>
+    <div style="text-align: center;">
+      <div style="display: inline-block;">
+        <%= image_tag Unsplash::Photo.find('cQAoMJ2utDA')[:urls][:thumb], size: "300x400", alt: "Specific Photo", style: "margin: 0 auto;" %>
+        <p>Likes: <%= Unsplash::Photo.find('cQAoMJ2utDA').likes %></p>
+      </div>
+      <div style="display: inline-block;">
+        <%= image_tag Unsplash::Photo.find('Mv9hjnEUHR4')[:urls][:thumb], size: "300x400", alt: "Specific Photo", style: "margin: 0 auto;" %>
+        <p>Likes: <%= Unsplash::Photo.find('Mv9hjnEUHR4').likes %></p>
+      </div>
+    </div>    
       <p><%= link_to "Home", "/" %></p>
       <p><%= link_to "Admin Dashboard", "/admin" %></p>
       <p><%= link_to "Merchant Index", "/admin/merchants" %></p>

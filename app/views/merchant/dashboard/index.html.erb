@@ -1,7 +1,8 @@
 <h1>Merchant Dashboard</h1>
 
 <div id="merchants">
-  <h2><%= @merchant.name %></h2>
+  <h2><%= @merchant.name %> <%= image_tag unsplash_image_url(size: '300x200', tags: 'random') %>
+  </h2>
   <br>
   <%= link_to "My Items", "/merchants/#{@merchant.id}/items" %>
   <%= link_to "My Invoices", "/merchants/#{@merchant.id}/invoices" %>
