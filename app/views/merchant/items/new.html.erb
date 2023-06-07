@@ -1,14 +1,5 @@
 <h1>Create New Item</h1>
-
-<%= form_with url: "/merchants/#{@merchant.id}/items/new", method: :post, local: true do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.label :description %>
-  <%= f.text_field :description %>
-  <%= f.label :unit_price %>
-  <%= f.text_field :unit_price %>
-  <%= f.label :merchant_id %>
-  <%= f.collection_select :merchant_id, Merchant.all, :id, :name %>
-  
-  <%= f.submit "Submit" %>
-<% end %>
+<%= render partial: "new_edit_form", locals: {
+  path: "/merchants/#{@merchant.id}/items",
+  method: :post,
+} %>
