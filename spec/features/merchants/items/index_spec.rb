@@ -107,8 +107,8 @@ RSpec.describe 'Merchant Items', type: :feature do
     it "can add new items" do 
       visit "/merchants/#{@merchant1.id}/items"
 
-      expect(page).to have_link "Create new item"
-      click_link "Create new item"
+      expect(page).to have_link "Create New Item"
+      click_link "Create New Item"
     end
 
 
@@ -156,6 +156,6 @@ RSpec.describe 'Merchant Items', type: :feature do
         expect(@item1.best_day.to_s).to eq(@invoice1.created_at.strftime("%Y-%m-%d"))
         expect(@item6.best_day.to_s).to eq(@invoice1.created_at.strftime("%Y-%m-%d"))
       end
-    end  
+    end 
   end
 end
