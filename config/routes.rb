@@ -1,35 +1,19 @@
 Rails.application.routes.draw do
   get "/", to: "application#welcome"
 
-  # get "/admin", to: "admin/dashboard#index"
+  get "/admin", to: "admin/dashboard#index"
 
-  # get "/admin/merchants", to: "admin/merchants#index"
-  # patch "/admin/merchants", to: "admin/merchants#update"
-  # get "/admin/merchants/new", to: "admin/merchants#new"
-  # post "/admin/merchants", to: "admin/merchants#create"
-  # get "/admin/merchants/:merchant_id", to: "admin/merchants#show"
-  # get "/admin/merchants/:merchant_id/edit", to: "admin/merchants#edit"
-  # patch "/admin/merchants/:merchant_id", to: "admin/merchants#update"
-
-# resources :admin, shallow: true do 
-#   resources :merchants, only: [:index, :new, :create, :show, :update]
-# end
-
-name
-
-# namespace :admin do 
-#   resources :invoices, only: [:index, :show, :update]
-#   resources :merchants, shallow: true  do 
-#   end
-# end
-
-  # namespace :admin do 
-  #   resources :invoices
-  # end
+  get "/admin/merchants", to: "admin/merchants#index"
+  patch "/admin/merchants", to: "admin/merchants#update"
+  get "/admin/merchants/new", to: "admin/merchants#new"
+  post "/admin/merchants", to: "admin/merchants#create"
+  get "/admin/merchants/:merchant_id", to: "admin/merchants#show"
+  get "/admin/merchants/:merchant_id/edit", to: "admin/merchants#edit"
+  patch "/admin/merchants/:merchant_id", to: "admin/merchants#update"
   
-  # get "/admin/invoices", to: "admin/invoices#index"
-  # get "/admin/invoices/:id", to: "admin/invoices#show", as: "admin_invoice"
-  # patch "/admin/invoices/:id", to: "admin/invoices#update"
+  get "/admin/invoices", to: "admin/invoices#index"
+  get "/admin/invoices/:id", to: "admin/invoices#show", as: "admin_invoice"
+  patch "/admin/invoices/:id", to: "admin/invoices#update"
 
   get "/merchants/:merchant_id/items/new", to: "merchant/items#new"
   post "/merchants/:merchant_id/items/new", to: "merchant/items#create"
