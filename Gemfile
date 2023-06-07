@@ -67,6 +67,7 @@ group :development, :test do
   gem 'httparty'
   gem 'json'
   gem "unsplash_image"
+  gem "nyan-cat-formatter"
 end
 
 group :development do

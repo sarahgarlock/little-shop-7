@@ -5,15 +5,15 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def show
-    @merchant = Merchant.find(params[:merchant_id])
+    @merchant = Merchant.find(params[:id])
   end
 
   def edit
-    @merchant = Merchant.find(params[:merchant_id])
+    @merchant = Merchant.find(params[:id])
   end
 
   def update
-    merchant = Merchant.find(params[:merchant_id])
+    merchant = Merchant.find(params[:id])
     merchant.update_status(params[:status])
     if merchant.update(merchant_params) && params[:merchant_status].blank?
       redirect_to "/admin/merchants/#{merchant.id}"
