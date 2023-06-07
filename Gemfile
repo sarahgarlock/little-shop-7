@@ -63,6 +63,10 @@ group :development, :test do
   gem 'orderly'
   gem 'faker'
   gem 'factory_bot_rails'
+  gem 'unsplash', '~> 3.0'
+  gem 'httparty'
+  gem 'json'
+  gem "unsplash_image"
 end
 
 group :development do
