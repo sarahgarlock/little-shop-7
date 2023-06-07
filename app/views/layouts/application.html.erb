@@ -18,7 +18,18 @@
 
   <body>
   <section>
+  <style>
+        body {
+          border: 5px solid #000000;
+          padding: 15px;
+          background-color: lightblue;
+          }
+      </style>
+      <p><%= link_to "Home", "/" %> | 
+      <%= link_to "Admin Dashboard", "/admin" %> | 
+      <%= link_to "Merchant Index", "/admin/merchants" %></p>
     <div style="text-align: center;">
+      <h3 style="font-family: 'Cool Font', fantasy;">Little Esty Shop</h3>
       <div style="display: inline-block;">
         <%= image_tag Unsplash::Photo.find('cQAoMJ2utDA')[:urls][:thumb], size: "300x400", alt: "Specific Photo", style: "margin: 0 auto;" %>
         <p>Likes: <%= Unsplash::Photo.find('cQAoMJ2utDA').likes %></p>
@@ -28,11 +39,11 @@
         <p>Likes: <%= Unsplash::Photo.find('Mv9hjnEUHR4').likes %></p>
       </div>
     </div>    
-      <p><%= link_to "Home", "/" %></p>
-      <p><%= link_to "Admin Dashboard", "/admin" %></p>
-      <p><%= link_to "Merchant Index", "/admin/merchants" %></p>
     </section>
     
     <%= yield %>
   </body>
+  <footer style="text-align: right;">
+    <p>ctrl+alt+elite</p>
+  </footer>
 </html>
