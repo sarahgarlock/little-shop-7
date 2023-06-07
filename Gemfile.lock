@@ -158,6 +158,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.2-x86_64-linux)
       racc (~> 1.4)
+    nyan-cat-formatter (0.12.0)
+      rspec (>= 2.99, >= 2.14.2, < 4)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
       jwt (>= 1.0, < 3.0)
@@ -297,6 +299,7 @@ DEPENDENCIES
   jbuilder
   json
   launchy
+  nyan-cat-formatter
   orderly
   pg (~> 1.1)
   pry
