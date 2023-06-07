@@ -10,7 +10,7 @@
     <div id="<%= inv_item.id %>">
     <h4>Item name: <%= inv_item.item.name %></h4>
     <p>Quantity: <%= inv_item.quantity %></p>
-    <p>Price per item: <%= inv_item.unit_price %></p>
+    <p>Price per item: $<%= inv_item.unit_price %></p>
     <%= form_with url: "/merchants/#{@merchant.id}/invoice_items/#{inv_item.id}", method: :patch do |f| %>
       <%= f.label :itemstatus, "Status of Item" %>
       <%= f.select(:itemstatus, ["packaged", "pending", "shipped"], selected: inv_item.status) %>
