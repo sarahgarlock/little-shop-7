@@ -50,8 +50,14 @@ class Merchant::ItemsController < ApplicationController
 
   def create
     @merchant = Merchant.find(params[:merchant_id])
-    @merchant.items.create!(item_params)
+    @merchant.items.new(item_params)
+    if @merchant.save
     redirect_to "/merchants/#{@merchant.id}/items"
+    flash[:notice] = "Item Successfully Created"
+    else
+      redirect_to "/merchants/#{@merchant.id}/items/new"
+      flash[:alert] = "Error: Valid data must be entered"
+    end
   end
 
   private 
