@@ -164,7 +164,7 @@ RSpec.describe "Admin Merchant Index", type: :feature do
         
         click_link "#{@merchant_3.name}"
         expect(current_path).to eq("/admin/merchants/#{@merchant_3.id}")
-
+save_and_open_page
         merchants = Merchant.top_by_revenue(5)
         expect(merchants).to eq([@merchant_3, @merchant_4, @merchant_2, @merchant_6, @merchant_5])
       end
