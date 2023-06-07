@@ -155,7 +155,6 @@ RSpec.describe 'Merchant Items', type: :feature do
         expect(@item2.best_day.to_s).to eq(@invoice1.created_at.strftime("%Y-%m-%d"))
         expect(@item1.best_day.to_s).to eq(@invoice1.created_at.strftime("%Y-%m-%d"))
         expect(@item6.best_day.to_s).to eq(@invoice1.created_at.strftime("%Y-%m-%d"))
-        save_and_open_page
       end
     end  
   end
