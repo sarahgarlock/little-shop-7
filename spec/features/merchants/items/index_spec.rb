@@ -16,10 +16,10 @@ RSpec.describe 'Merchant Items', type: :feature do
       @customer1 = Customer.create!(first_name: "Andy", last_name: "S")
       @customer2 = Customer.create!(first_name: "Billy", last_name: "Bob")
 
-      @invoice1 = Invoice.create!(customer_id: @customer1.id, status: 1)
-      @invoice2 = Invoice.create!(customer_id: @customer1.id, status: 1)
-      @invoice3 = Invoice.create!(customer_id: @customer1.id, status: 1)
-      @invoice4 = Invoice.create!(customer_id: @customer2.id, status: 1)
+      @invoice1 = Invoice.create!(customer_id: @customer1.id, status: 1, created_at: "2023-06-06 03:49:12.81835")
+      @invoice2 = Invoice.create!(customer_id: @customer1.id, status: 1, created_at: "2023-06-07 03:49:12.81835")
+      @invoice3 = Invoice.create!(customer_id: @customer1.id, status: 1, created_at: "2023-06-09 03:49:12.81835")
+      @invoice4 = Invoice.create!(customer_id: @customer2.id, status: 1, created_at: "2023-06-11 03:49:12.81835")
 
       @invoiceitem1 = InvoiceItem.create!(item_id: @item1.id, invoice_id: @invoice1.id, quantity: 100, unit_price: 10, status: 1)
       @invoiceitem2 = InvoiceItem.create!(item_id: @item2.id, invoice_id: @invoice2.id, quantity: 100, unit_price: 11, status: 1)
@@ -143,11 +143,12 @@ RSpec.describe 'Merchant Items', type: :feature do
         expect(page).to have_content(@item1.best_day)
         expect(page).to have_content(@item6.best_day)
 
-        expect(@item5.best_day).to eq(Date.today)
-        expect(@item3.best_day).to eq(Date.today)
-        expect(@item2.best_day).to eq(Date.today)
-        expect(@item1.best_day).to eq(Date.today)
-        expect(@item6.best_day).to eq(Date.today)
+        expect(@item5.best_day.to_s).to eq(@invoice1.created_at.strftime("%Y-%m-%d"))
+        expect(@item3.best_day.to_s).to eq(@invoice1.created_at.strftime("%Y-%m-%d"))
+        expect(@item2.best_day.to_s).to eq(@invoice1.created_at.strftime("%Y-%m-%d"))
+        expect(@item1.best_day.to_s).to eq(@invoice1.created_at.strftime("%Y-%m-%d"))
+        expect(@item6.best_day.to_s).to eq(@invoice1.created_at.strftime("%Y-%m-%d"))
+        save_and_open_page
       end
     end  
   end
