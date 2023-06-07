@@ -41,17 +41,17 @@ RSpec.describe 'Merchant Items', type: :feature do
       expect(page).to have_field("Name", with: "#{@item1.name}")
       expect(page).to have_field("Description", with: "#{@item1.description}")
       expect(page).to have_field("Unit price", with: "#{@item1.unit_price}")
-      expect(page).to have_button "Save"
+      expect(page).to have_button "Submit"
 
       fill_in "Unit price", with: "Not a number"
-      click_button "Save"
+      click_button "Submit"
       expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}/edit")
       expect(page).to have_content("Error: Valid data must be entered")
 
       fill_in "Name", with: "Cheeba Hut Sandwhiches"
       fill_in "Description", with: "Sub Sandwhich"
       fill_in "Unit price", with: 15
-      click_button "Save"
+      click_button "Submit"
 
       expect(current_path).to eq("/merchants/#{@merchant1.id}/items/#{@item1.id}")
       expect(page).to have_content("Item Successfully Updated")
