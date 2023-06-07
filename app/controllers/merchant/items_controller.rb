@@ -9,18 +9,22 @@ class Merchant::ItemsController < ApplicationController
   end
 
   def show
+    # require 'pry'; binding.pry
     @merchant = Merchant.find(params[:merchant_id])
-    @item = Item.find(params[:item_id])
+    # @item = Item.find(params[:item_id])
+    @item = Item.find(params[:id])
   end
 
   def edit
     @merchant = Merchant.find(params[:merchant_id])
-    @item = Item.find(params[:item_id])
+    # @item = Item.find(params[:item_id])
+    @item = Item.find(params[:id])
   end
 
   def update
     @merchant = Merchant.find(params[:merchant_id])
-    @item = Item.find(params[:item_id])
+    # @item = Item.find(params[:item_id])
+    @item = Item.find(params[:id])
     @item.update(name: params[:name], description: params[:description], unit_price: params[:unit_price])
     if @item.update(item_params)
       redirect_to "/merchants/#{@merchant.id}/items/#{@item.id}"
@@ -34,6 +38,7 @@ class Merchant::ItemsController < ApplicationController
   def update_status
     @merchant = Merchant.find(params[:merchant_id])
     @item = Item.find(params[:item_id])
+    # @item = Item.find(params[:id])
     if params[:disable] != nil
       @item.update(status: "disabled")
     elsif params[:enable] != nil
