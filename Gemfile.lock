@@ -309,7 +309,7 @@ DEPENDENCIES
   stimulus-rails
   turbo-rails
   tzinfo-data
-  unsplash (~> 3.0)
+  unsplash
   unsplash_image
   web-console
 
