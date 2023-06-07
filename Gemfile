@@ -47,6 +47,7 @@ gem "bootsnap", require: false
 
 # CSV gem available in dev and prod
   gem 'csv'
+  gem 'unsplash'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -63,7 +64,6 @@ group :development, :test do
   gem 'orderly'
   gem 'faker'
   gem 'factory_bot_rails'
-  gem 'unsplash'
   gem 'httparty'
   gem 'json'
   gem "unsplash_image"
