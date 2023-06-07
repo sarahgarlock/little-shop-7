@@ -27,7 +27,7 @@ RSpec.describe 'Merchant Items', type: :feature do
       fill_in "name", with: "paper"
       fill_in "description", with: "abcde"
       fill_in "unit_price", with: "5"
-      click_on "Submit"
+      click_button "Submit"
       
       expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
       expect(page).to have_content("paper Status: disabled")

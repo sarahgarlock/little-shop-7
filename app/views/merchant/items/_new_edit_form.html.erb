@@ -1,0 +1,13 @@
+<%= form_with url: path, method: method, data: {turbo: false}, local: true do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, value: "#{@item.name}" %>
+  <%= f.label :description %>
+  <%= f.text_field :description, value: "#{@item.description}" %>
+  <%= f.label :unit_price %>
+  <%= f.text_field :unit_price, value: "#{@item.unit_price}" %>
+    <% if :merchant_id %>
+      <%= f.label :merchant_id %>
+      <%= f.collection_select :merchant_id, Merchant.all, :id, :name %>
+    <% end %>
+  <%= f.submit "Submit" %>
+<% end %>
