@@ -23,12 +23,17 @@
 - Advanced routing techniques were utilized including namespacing to organize and group like functionality together.
 - Advanced active record techniques were also used to perform complex database queries.
 - Students accessed a public API while utilizing POROs as a way to apply OOP principles to organize code.
+- Partials were implemented for some forms.
 
 ## Requirements
 - This project uses Rails 7.0.x, Ruby 3.1.1, and PostgreSQL
+  - Don't forget to run rspec spec -f NyanCatMusicFormatter for the full test experience.
 
 ## Future work
 -  Future work on this project could include: 
+  - Refactoring test setup
+  - Refactoring query methods down to a single query that does multiple things
+  - Refactor views with additional partials
   - Additional visual design elements to make the app look more similar to the wireframes
   - Additional visual design elements to make a custom design for the app
   - Extension work to manage invoice statuses, sort lists, filter views, implement authentication and authorization for admins and/or merchant users
