@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   patch "/admin/invoices/:id", to: "admin/invoices#update"
 
   get "/merchants/:merchant_id/items/new", to: "merchant/items#new"
-  post "/merchants/:merchant_id/items/new", to: "merchant/items#create"
+  post "/merchants/:merchant_id/items", to: "merchant/items#create"
   get "/merchants/:merchant_id/dashboard", to: "merchant/dashboard#index"
   get "/merchants/:merchant_id/invoices", to: "merchant/invoice#index"
   get "/merchants/:merchant_id/invoices/:invoice_id", to: "merchant/invoice#show"
