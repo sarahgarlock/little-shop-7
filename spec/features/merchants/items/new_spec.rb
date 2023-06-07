@@ -23,14 +23,37 @@ RSpec.describe 'Merchant Items', type: :feature do
 
     # 11. Merchant Item Create
     it "can add new items" do 
-      visit "/merchants/#{@merchant1.id}/items/new"
+      visit "/merchants/#{@merchant1.id}/items"
+
+      within "#disabled" do
+        expect(page).to_not have_content("paper")
+      end
+
+      expect(page).to have_link "Create New Item"
+      click_link "Create New Item"
+      expect(current_path).to eq("/merchants/#{@merchant1.id}/items/new")
+
+      expect(page).to have_field("Name")
+      expect(page).to have_field("Description")
+      expect(page).to have_field("Unit price")
+      expect(page).to have_button "Submit"
+
       fill_in "name", with: "paper"
       fill_in "description", with: "abcde"
-      fill_in "unit_price", with: "5"
+      fill_in "unit_price", with: "not_a_number"
       click_button "Submit"
+      expect(current_path).to eq("/merchants/#{@merchant1.id}/items/new")
+      expect(page).to have_content("Error: Valid data must be entered")
+      fill_in "name", with: "paper"
+      fill_in "description", with: "abcde"
+      fill_in "unit_price", with: "15"
+      click_button "Submit"
+
       
       expect(current_path).to eq("/merchants/#{@merchant1.id}/items")
+      expect(page).to have_content("Item Successfully Created")
       expect(page).to have_content("paper Status: disabled")
+
       within "#disabled" do
         expect(page).to have_content("paper")
       end 
