@@ -1,25 +1,47 @@
-<h2>Admin Dashboard<h2>
+<style>
+  #container {
+    display: flex;
+  }
 
-<p><%= link_to 'Merchants', admin_merchants_path %><p>
-<p><%= link_to 'Invoices', '/admin/invoices' %><p>
+  #incomplete-invoices {
+    flex: 1;
+  }
 
-<section id="top5">
-  <h2> Top 5 Customers: </h2> 
-  <% @customers.top_5.each do |customer| %>
-    <div id="top5-<%= customer.id %>">
-    <%= customer.first_name %>
-    <%= customer.last_name %>
-    <%= customer.count_success_transactions %>
-    </div>
-  <% end %>
-</section>
+  #top5 {
+    flex: 1;
+  }
+  
+  .invoices-container {
+  border: 2px solid #000000;
+  padding: 10px;
+}
 
-<div id="incomplete-invoices">
-  <h2>Incomplete Invoices</h2>
-  <% @invoices.each do |invoice| %>
-    <p>
-      <%= link_to "Invoice ID ##{invoice.id}", admin_invoice_path(invoice.id) %>
-      - Created: <%= invoice.created_at.strftime("%A, %B %d, %Y") %>
-    </p>
-  <% end %>
+</style>
+<h1>Admin Dashboard</h1>
+
+<%= link_to 'Dashboard', '/admin' %> | <%= link_to 'Merchants', admin_merchants_path %> | <%= link_to 'Invoices', '/admin/invoices' %> 
+
+
+<div id="container">
+  <div id="incomplete-invoices">
+    <h2>Incomplete Invoices</h2>
+    <% @invoices.each do |invoice| %>
+      <p>
+        <%= link_to "Invoice ID ##{invoice.id}", admin_invoice_path(invoice.id) %>
+        - Created: <%= invoice.created_at.strftime("%A, %B %d, %Y") %>
+      </p>
+    <% end %>
+  </div>
+
+  <section id="top5">
+    <h2>Top 5 Customers:</h2>
+    <% @customers.top_5.each do |customer| %>
+      <div id="top5-<%= customer.id %>">
+        <li>
+          <%= customer.first_name %> <%= customer.last_name %> - <%= customer.count_success_transactions %> Purchases
+          <br><br>
+        </li>
+      </div>
+    <% end %>
+  </section>
 </div>
