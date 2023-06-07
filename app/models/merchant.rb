@@ -21,7 +21,6 @@ class Merchant < ApplicationRecord
       "invalid code"
     end
   end
-
   
   def best_day
     best_date = 
