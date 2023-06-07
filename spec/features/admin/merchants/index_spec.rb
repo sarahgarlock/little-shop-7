@@ -46,29 +46,29 @@ RSpec.describe "Admin Merchant Index", type: :feature do
     end
     
     it "has buttons to disable or enable each merchant" do 
+      @merchant_1.enabled!
+      @merchant_2.enabled!
+      @merchant_3.disabled!
+      @merchant_4.disabled!
+      
       visit admin_merchants_path
 
       within("#merchant-#{@merchant_1.id}") do 
         expect(page).to have_content("enabled")
       end
       
-      within("#merchant-#{@merchant_2.id}") do 
-        expect(page).to have_content("#{@merchant_2.status}")
+      within("#merchant-#{@merchant_3.id}") do 
+        expect(page).to have_content("disabled")
       end
       
       expect(page).to have_button("Disable #{@merchant_1.name}")
       expect(page).to have_button("Disable #{@merchant_2.name}")
-      expect(page).to have_button("Disable #{@merchant_3.name}")
-      expect(page).to have_button("Disable #{@merchant_4.name}")
-      expect(page).to have_button("Enable #{@merchant_4.name}")
       expect(page).to have_button("Enable #{@merchant_3.name}")
-      expect(page).to have_button("Enable #{@merchant_2.name}")
-      expect(page).to have_button("Enable #{@merchant_1.name}")
+      expect(page).to have_button("Enable #{@merchant_4.name}")
 
       within("#merchant-#{@merchant_1.id}") do
         click_button "Disable #{@merchant_1.name}"
       end
-      
       
       expect(current_path).to eq(admin_merchants_path)
       
@@ -110,12 +110,12 @@ RSpec.describe "Admin Merchant Index", type: :feature do
 
     it "has a link to create a new merchant" do
       visit admin_merchants_path
-
+      
       click_link "Create a New Merchant" 
-
+      
       expect(current_path).to eq("/admin/merchants/new")
     end
-
+    
     it "lists the top selling date for each of the top 5 merchants" do 
       visit admin_merchants_path
   
@@ -164,7 +164,6 @@ RSpec.describe "Admin Merchant Index", type: :feature do
         
         click_link "#{@merchant_3.name}"
         expect(current_path).to eq("/admin/merchants/#{@merchant_3.id}")
-
         merchants = Merchant.top_by_revenue(5)
         expect(merchants).to eq([@merchant_3, @merchant_4, @merchant_2, @merchant_6, @merchant_5])
       end
